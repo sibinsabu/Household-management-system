@@ -17,7 +17,7 @@ const JobListing = database.define("jobListing",{
         type: DataTypes.STRING,
     },
     schedule:{
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
     },
     salary:{
         type: DataTypes.INTEGER,
@@ -35,7 +35,7 @@ const JobListing = database.define("jobListing",{
 }
 );
 
-db.sync()
+database.sync()
   .then(() => {
     console.log("table Synced successfully!");
   })
