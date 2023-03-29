@@ -1,4 +1,5 @@
 <template>
+<div>
   <div class="bg-gray-100 py-10 px-4 my-16">
     <div class="max-w-3xl mx-auto">
       <h1 class="text-3xl font-extrabold text-indigo-600 text-center mb-6">About Us</h1>
@@ -21,6 +22,7 @@
       <img src="../assets/images/GettyImages-1138450812.webp" class="rounded-md">
     </div>
   </div>
+</div>
 </div>
 </template>
 

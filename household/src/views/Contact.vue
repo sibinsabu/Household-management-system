@@ -1,4 +1,5 @@
 <template>
+<div>
   <div class="bg-gray-100 py-10 px-4 my-16">
     <div class="max-w-3xl mx-auto">
       <h1 class="text-3xl font-extrabold text-indigo-600 text-center mb-6">How can we Be on your service</h1>
@@ -48,6 +49,7 @@
         </div>
     </div>
   </div>
+</div>
 </template>
 
   

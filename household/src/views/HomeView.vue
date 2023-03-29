@@ -1,4 +1,5 @@
 <template>
+<div>
 <div class="bg-gray-100 bg-image sm-h-48 hero-section  my-16 ">
   <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-3xl mx-auto">
@@ -6,7 +7,7 @@
       <p class="text-lg text-black-500 lg:font-bold lg:text-center">Browse through our listings of household jobs and apply today.</p>
 
           <div class="rounded-md shadow">
-            <a href="/Signup" class="justify-self-center md:w-48 flex items-center justify-center m-auto my-2 px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:text-lg md:px-10">
+            <a href="/AccountType" class="justify-self-center md:w-48 flex items-center justify-center m-auto my-2 px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:text-lg md:px-10">
               Start now
             </a>
           </div>
@@ -95,14 +96,14 @@
         
         <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
           <div class="rounded-md shadow">
-            <a href="/Signup" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10">
+            <a href="/Applicant" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10">
               Find Jobs
             </a>
           </div>
 
           <div class="mt-3 sm:mt-0 sm:ml-3">
             <div class="rounded-md shadow">
-              <a href="/Signup" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10">
+              <a href="/Homeowner" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10">
               Job listings
               </a>
             </div>
@@ -119,6 +120,7 @@
             <p> Homeowners can create job listings and review applicants' profiles, while applicants can search for jobs and apply directly through our site.</p>
           </div>
   </div>
+</div>
 </template>
 
 <script>

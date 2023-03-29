@@ -1,13 +1,14 @@
 <template>
+<div>
   <nav class="bg-white shadow-lg fixed w-full z-10 top-0">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
       <div class="flex h-16 items-center">
-        <!-- Logo -->
         <div class="flex-shrink-0">
           <a href="/" class="text-lg font-bold text-gray-900">Households</a>
         </div>
   
-        <!-- <div :class="{'hidden md:flex flex-1 justify-center space-x-6': !showMobileMenu, 'flex flex-col  bg-white absolute top-16 left-0 right-0': showMobileMenu}" >
+        <div :class="{'hidden md:flex flex-1 justify-center space-x-6': !showMobileMenu, 'flex flex-col  bg-white absolute top-16 left-0 right-0': showMobileMenu}" >
             <router-link @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block': !showMobileMenu,
             'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0': showMobileMenu }" :to="{ name: 'home' }">
                 Home
@@ -19,10 +20,10 @@
                 Jobs
               </div>
               <div class="drop absolute z-10 top-full left-0 w-48 py-2 bg-white rounded-lg shadow-lg" v-show="showDropdown" :class="{ 'right-0': showMobileMenu }" :style="{ 'padding-top': showDropdown ? '20px' : '' }">
-                <router-link @click="showMobileMenu = false" class="block px-4 py-2 text-gray-800 hover:bg-gray-200" :to="{ name: 'find-Jobs' }">
+                <router-link @click="showMobileMenu = false" class="block px-4 py-2 text-gray-800 hover:bg-gray-200" :to="{ name: 'HowToFindJob' }">
                   How to Find a Job
                 </router-link>
-                <router-link @click="showMobileMenu = false" class="block px-4 py-2 text-gray-800 hover:bg-gray-200" :to="{ name: 'Job-listing' }">
+                <router-link @click="showMobileMenu = false" class="block px-4 py-2 text-gray-800 hover:bg-gray-200" :to="{ name: 'HowToCreateJob' }">
                   How to List a Job
                 </router-link>
               </div>
@@ -31,12 +32,29 @@
            'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0': showMobileMenu }" :to="{ name: 'contact' }">
             Contact
           </router-link>
-        </div> -->
+        </div>
+
+      
+        <div class="md:hidden ml-auto">
+          <button @click="showMobileMenu = !showMobileMenu" class="flex items-center px-3 py-2 border rounded text-gray-500 hover:text-gray-900 focus:outline-none" aria-label="Toggle Menu">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+      </div>  
 
 
-        <!-- navbar for the Applicant -->
-          
-         <!-- <div :class="{'hidden md:flex flex-1 justify-center space-x-6': !showMobileMenu, 'flex flex-col  bg-white absolute top-16 left-0 right-0 shadow-lg': showMobileMenu}" >
+
+
+      <!-- Applicant Navbar -->
+
+      <!-- <div class="flex h-16 items-center">
+        <div class="flex-shrink-0">
+          <a href="/" class="text-lg font-bold text-gray-900">Households</a>
+        </div>
+
+         <div :class="{'hidden md:flex flex-1 justify-center space-x-6': !showMobileMenu, 'flex flex-col  bg-white absolute top-16 left-0 right-0 shadow-lg': showMobileMenu}" >
             <router-link  link @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:hidden': !showMobileMenu,
             'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0 md:hidden': showMobileMenu }" :to="{ name: 'Profile' }">
                Profile
@@ -57,7 +75,7 @@
               Reviews  
             </router-link>
 
-            display on mobile view only
+
             <router-link  link @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:hidden': !showMobileMenu,
             'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0': showMobileMenu }" :to="{ name: 'contact' }">
               logOut
@@ -75,11 +93,27 @@
                   <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Logout</a>
                 </div>
               </div>
-         </div> -->
+         </div>
+
+
+        <div class="md:hidden ml-auto">
+          <button @click="showMobileMenu = !showMobileMenu" class="flex items-center px-3 py-2 border rounded text-gray-500 hover:text-gray-900 focus:outline-none" aria-label="Toggle Menu">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+      </div> -->
 
 
 
-         <!-- navbar for the homeowner -->
+
+      <!-- Homeowner Navbar -->
+      <!-- <div class="flex h-16 items-center">
+        <div class="flex-shrink-0">
+          <a href="/" class="text-lg font-bold text-gray-900">Households</a>
+        </div>
+
           <div :class="{'hidden md:flex flex-1 justify-center space-x-6': !showMobileMenu, 'flex flex-col  bg-white absolute top-16 left-0 right-0 shadow-lg': showMobileMenu}" >
             <router-link  link @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:hidden': !showMobileMenu,
             'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0 md:hidden': showMobileMenu }" :to="{ name: 'Profile' }">
@@ -101,7 +135,6 @@
               Reviews  
             </router-link>
 
-            <!-- display on mobile view only -->
             <router-link  link @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:hidden': !showMobileMenu,
             'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0': showMobileMenu }" :to="{ name: 'contact' }">
               logOut
@@ -121,9 +154,6 @@
               </div>
          </div>
 
-
-
-        <!-- Mobile Menu -->
         <div class="md:hidden ml-auto">
           <button @click="showMobileMenu = !showMobileMenu" class="flex items-center px-3 py-2 border rounded text-gray-500 hover:text-gray-900 focus:outline-none" aria-label="Toggle Menu">
             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -131,12 +161,13 @@
             </svg>
           </button>
         </div>
+      </div> -->
 
-      </div>   
     </div>
   </nav>
   <router-view />
-  </template>
+</div>
+</template>
   
   <script>
   export default {
