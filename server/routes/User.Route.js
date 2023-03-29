@@ -8,8 +8,8 @@ const {
 
 const AuthRouter = require("express").Router();
 
-AuthRouter.post("/login", login);
 AuthRouter.post("/signup", signup);
+AuthRouter.post("/login", login);
 AuthRouter.post("/forgotPassword", forgotPassword);
 AuthRouter.get("/:id", getUserById);
 AuthRouter.put("/reset/:id", resetPassword);

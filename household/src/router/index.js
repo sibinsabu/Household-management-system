@@ -3,20 +3,22 @@ import HomeView from '../views/HomeView.vue'
 import  AboutView from '../views/AboutView'
 import  contactView from '../views/Contact.vue'
 import  CommunityView from '../views/Community.vue'
-import  findJobs from '../views/findJob.vue'
-import  createJobs from '../views/createJob.vue'
-import  Signup from '../views/Signup.vue'
+import  HowToFindJob from '../views/HowToFindJob.vue'
+import  HowToCreateJob from '../views/HowToCreateJob.vue'
+import  Applicant from '../views/Applicant.Signup.vue'
+import  Homeowner from '../views/Homeowner.Signup.vue'
 import  Login from '../views/Login.vue'
 import  ForgotVue from '../views/Forgot.vue'
 import  ResetVue from '../views/Reset.vue'
-import  Jobs from '../views/Jobs.vue'
-import  jobListingId from '../views/JobListingId.vue'
-import  Profile from '../views/Profile.vue'
-import  SavedJobs from '../views/SavedJobs.vue'
-import  Post from '../views/Post.vue'
-import Reviews from '../views/Reviews.vue'
-import PublicProfile from '../views/Public-profile.vue'
-import CreateJob from '../views/Create-job-listing.vue'
+import  Jobs from '../views/User-Dashoard/Jobs.vue'
+import  jobListingId from '../views/User-Dashoard/JobListingId.vue'
+import  Profile from '../views/User-Dashoard/Profile.vue'
+import  SavedJobs from '../views/User-Dashoard/SavedJobs.vue'
+import  Post from '../views/User-Dashoard/Post.vue'
+import Reviews from '../views/User-Dashoard/Reviews.vue'
+import PublicProfile from '../views/User-Dashoard/Public-profile.vue'
+import CreateJob from '../views/User-Dashoard/Create-job-listing.vue'
+import AccountType from '../views/AccountType.vue'
 
 const routes = [
   {
@@ -40,19 +42,29 @@ const routes = [
     component: CommunityView
   },
   {
-    path: '/find-Jobs',
-    name: 'find-Jobs',
-    component: findJobs
+    path: '/HowToFindJob',
+    name: 'HowToFindJob',
+    component: HowToFindJob
   },
   {
-    path: '/Job-listing',
-    name: 'Job-listing',
-    component: createJobs
+    path: '/HowToCreateJob',
+    name: 'HowToCreateJob',
+    component: HowToCreateJob
   },
   {
-    path: '/Signup',
-    name: 'Signup',
-    component: Signup
+    path: '/AccountType',
+    name: 'AccountType',
+    component: AccountType 
+  },
+  {
+    path: '/Applicant',
+    name: 'Applicant',
+    component: Applicant
+  },
+  {
+    path: '/Homeowner',
+    name: 'Homeowner',
+    component: Homeowner
   },
   {
     path: '/Login',

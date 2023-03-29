@@ -19,7 +19,7 @@ const createToken = (id, name, email) => {
   
   const signup = async (req, res) => {
     const { username, email, password, phoneNumber, accountType, jobTitle, AboutMe, location} = req.body;
-    const encryptPassword = await bcrypt.hash(password, 10);
+    const encryptPassword = await bcrypt.hash(password, 1);
   
     const checkingIfEmailExists = await User.findOne({ where: { email: email } }); // find email in database
     if (checkingIfEmailExists) {
