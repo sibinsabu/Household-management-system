@@ -5,14 +5,18 @@
       </div>
   
       <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-2">
+          <div v-if="HandelError" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-2" role="alert">
+            <span class="block sm:inline text-center">{{ HandelError }}</span>
+          </div>
+
         <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form @submit.prevent="login" class="space-y-6">
                   <p class="mb-5 text-center text-sm text-gray-600 font-medium">Login using your credential</p>
   
                   <div class="mt-5">
-                      <label for="username" class="block text-sm font-medium text-gray-700 my-2">Username</label>
+                      <label for="email" class="block text-sm font-medium text-gray-700 my-2">Email</label>
                       <div class="mt-1">
-                      <input type="text" v-model="userName" :class="{ 'border-red-500': formSubmitted && !userName }" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent">
+                      <input type="text" v-model="email" :class="{ 'border-red-500': formSubmitted && !email }" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent">
                       </div>
                   </div>
   
@@ -39,11 +43,14 @@
 
 
 <script>
+import axios from "axios";
+
 export default {
 data() {
     return {
-      userName: '',
+      email: '',
       password: '',
+      HandelError: '',
       formSubmitted: false
     }
   },
@@ -51,11 +58,26 @@ data() {
  methods: {
     login(){
         this.formSubmitted = true;
-        if (!this.userName || !this.password) {
+        if (!this.email || !this.password) {
         return;
-      }
-       console.log(this.userName , this.password );
-   },
+      }else{
+        axios.post("http://localhost:5000/authentication/login", {
+        email: this.email,
+        password: this.password,
+       })
+      .then(response => {
+         const user = response.data.user;
+          localStorage.setItem("user", JSON.stringify(user));
+          this.$store.dispatch("LOGIN", user);
+        })
+      .catch(error => {
+        if (error.response?.status === 401) {
+          this.HandelError = "Invalid login credentials"
+          }
+      });
+    }
+      
+  },
 }
 }
 </script>

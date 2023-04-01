@@ -8,13 +8,16 @@
 
    <!-- status bar -->
     <div class="flex justify-center items-center space-x-2 mt-4">
-        <div v-for="i in 3" 
+        <div v-for="i in 2" 
             :key="i" 
             :class="['h-3 w-3 rounded-full', step >= i ? 'bg-blue-600' : 'bg-gray-300']">
         </div>
     </div>
 
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-2">
+      <div v-if="HandelError" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-2" role="alert">
+        <span class=" text-center">{{ HandelError }}</span>
+      </div>
       <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 border-solid border-2 border-blue-600">
         <form @submit.prevent="signup" class="space-y-6">
             <div v-show="step === 1">
@@ -119,6 +122,7 @@ export default {
       phoneNumber: '',
       bio: '',
       location: '',
+      HandelError: '',
     }
   },
 
@@ -144,15 +148,11 @@ export default {
       bio: this.bio,
       location: this.location,
     })
-  .then(response => {
-      const user = response.data.user;
-        localStorage.setItem("user", JSON.stringify(user));
-        this.$store.dispatch("LOGIN", user);
-    // handle response
-  })
+    this.$router.push('/login')
   .catch(error => {
-    console.log(error);
-    // handle error
+    if (error.response?.status === 401) {
+      this.HandelError = "Email is already taken"
+    }
   });
 }
   },
