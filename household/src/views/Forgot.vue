@@ -32,6 +32,7 @@
 
 <script>
 import axios from "axios";
+import { SERVER_URL } from "../constant/index";
 
 export default {
     data() {
@@ -49,7 +50,7 @@ export default {
         this.HandelError = "Invalid email address";
         return;
       }else{
-        axios.post("http://localhost:5000/authentication/forgotPassword", {
+        axios.post(`${SERVER_URL}/authentication/forgotPassword`, {
         email: this.email,
        })
        .then(() => {

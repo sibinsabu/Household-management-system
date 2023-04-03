@@ -41,6 +41,7 @@
 
 <script>
 import axios from "axios";
+import { SERVER_URL } from "../constant/index";
 
 export default {
     data() {
@@ -57,7 +58,7 @@ export default {
         if (!this.password || !this.confirm_password) {
         return;
       }else{
-        axios.put(`http://localhost:5000/authentication/reset/${this.$route.params.id}`, {
+        axios.put(`${SERVER_URL}/authentication/reset/${this.$route.params.id}`, {
          password: this.password,
          confirm_password: this.confirm_password,
        })

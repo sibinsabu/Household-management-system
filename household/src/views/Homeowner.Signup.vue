@@ -116,6 +116,7 @@
 
 <script>
 import axios from "axios";
+import { SERVER_URL } from "../constant/index";
 
 export default {
   data() {
@@ -151,7 +152,7 @@ export default {
       this.formSubmitted = true;
       if (!this.bio || !this.location) {
         return;
-      } else{axios.post("http://localhost:5000/authentication/signup", {
+      } else{axios.post(`${SERVER_URL}/authentication/signup`, {
         accountType: this.accountType,
         username: this.username,
         password: this.password,

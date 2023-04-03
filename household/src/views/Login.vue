@@ -46,6 +46,7 @@
 
 <script>
 import axios from "axios";
+import { SERVER_URL } from "../constant/index";
 
 export default {
 data() {
@@ -63,7 +64,7 @@ data() {
         if (!this.email || !this.password) {
         return;
       }else{
-        axios.post("http://localhost:5000/authentication/login", {
+        axios.post(`${SERVER_URL}/authentication/login`, {
         email: this.email,
         password: this.password,
        })
