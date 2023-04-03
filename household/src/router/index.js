@@ -1,12 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import store from '@/store';
 import HomeView from '../views/HomeView.vue'
 import  AboutView from '../views/AboutView'
 import  contactView from '../views/Contact.vue'
 import  CommunityView from '../views/Community.vue'
 import  HowToFindJob from '../views/HowToFindJob.vue'
 import  HowToCreateJob from '../views/HowToCreateJob.vue'
-import  Applicant from '../views/Applicant.Signup.vue'
-import  Homeowner from '../views/Homeowner.Signup.vue'
+import  ApplicantSignupPage from '../views/Applicant.Signup.vue'
+import  HomeownerSignupPage from '../views/Homeowner.Signup.vue'
 import  Login from '../views/Login.vue'
 import  ForgotVue from '../views/Forgot.vue'
 import  ResetVue from '../views/Reset.vue'
@@ -20,106 +21,170 @@ import PublicProfile from '../views/User-Dashoard/Public-profile.vue'
 import CreateJob from '../views/User-Dashoard/Create-job-listing.vue'
 import AccountType from '../views/AccountType.vue'
 
+
+// he requireAuth function checks if the user is authenticated by checking for a valid user object with a token property in local storage. 
+// If the user is authenticated, the function calls the next function to allow the user to access the next route. Otherwise,
+// the function redirects the user to the login page.
+// The beforeEnter property is then set on the "Jobs" route to call the requireAuth function before allowing the user to access the route.
+
+const requireAuth = (to, from, next) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (user) {
+    next();
+  } else {
+    next({ name: "Login" });
+  }
+};
+
+
+
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: () => {
+      const isLoggedIn = JSON.parse(localStorage.getItem("user")) !== null;
+      return isLoggedIn ? Jobs : HomeView;
+    }
+   
   },
   {
     path: '/about',
     name: 'about',
-    component: AboutView
+    component: AboutView,
+   
   },
   {
     path: '/contact',
     name: 'contact',
-    component: contactView
+    component: contactView,
+   
   },
   {
     path: '/community',
     name: 'community',
-    component: CommunityView
+    component: CommunityView,
+   
   },
   {
     path: '/HowToFindJob',
     name: 'HowToFindJob',
-    component: HowToFindJob
+    component: HowToFindJob,
+   
   },
   {
     path: '/HowToCreateJob',
     name: 'HowToCreateJob',
-    component: HowToCreateJob
+    component: HowToCreateJob,
+   
   },
   {
     path: '/AccountType',
     name: 'AccountType',
-    component: AccountType 
+    component: AccountType,
+   
   },
   {
     path: '/Applicant',
     name: 'Applicant',
-    component: Applicant
+    component: ApplicantSignupPage,
+   
   },
   {
     path: '/Homeowner',
     name: 'Homeowner',
-    component: Homeowner
+    component: HomeownerSignupPage,
+   
   },
   {
     path: '/Login',
     name: 'Login',
-    component: Login
+    component: Login,
+   
   },
   {
     path: '/Forgot-Password',
     name: 'Forgot-Password',
-    component: ForgotVue
+    component: ForgotVue,
+   
   },
   {
-    path: '/Reset-Password',
+    path: '/Reset-Password/:id',
     name: 'Reset-Password',
-    component: ResetVue
+    component: ResetVue,
+   
   },
   {
-    path: '/Jobs',
-    name: 'Jobs',
-    component: Jobs
+    path: "/jobs",
+    name: "Jobs",
+    component: Jobs,
+    meta: {
+      requiresAuth: true
+    },
+    beforeEnter: requireAuth
   },
   {
     path: '/JobListingById',
     name: 'JobListing',
-    component: jobListingId
+    component: jobListingId,
+    meta: {
+      requiresAuth: true
+    },
+    beforeEnter: requireAuth
   },
   {
     path: '/Saved-Jobs',
     name: 'Saved-Jobs',
-    component: SavedJobs
+    component: SavedJobs,
+    meta: {
+      requiresAuth: true
+    },
+    beforeEnter: requireAuth
   },
   {
     path: '/Create-job-listing',
     name: 'Create-job-listing',
-    component: CreateJob
+    component: CreateJob,
+    meta: {
+      requiresAuth: true
+    },
+    beforeEnter: requireAuth
   },
   {
     path: '/Post',
     name: 'Post',
-    component: Post
+    component: Post,
+    meta: {
+      requiresAuth: true
+    },
+    beforeEnter: requireAuth
   },
   {
     path: '/Reviews',
     name: 'Reviews',
-    component: Reviews
+    component: Reviews,
+    meta: {
+      requiresAuth: true
+    },
+    beforeEnter: requireAuth
   },
   {
     path: '/Profile',
     name: 'Profile',
-    component: Profile
+    component: Profile,
+    meta: {
+      requiresAuth: true
+    },
+    beforeEnter: requireAuth
   },
   {
     path: '/public-profile',
     name: 'PublicProfile',
-    component:  PublicProfile
+    component:  PublicProfile,
+    meta: {
+      requiresAuth: true
+    },
+    beforeEnter: requireAuth
   },
 ]
 
@@ -127,5 +192,6 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+
 
 export default router
