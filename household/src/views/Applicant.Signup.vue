@@ -8,7 +8,7 @@
 
    <!-- status bar -->
     <div class="flex justify-center items-center space-x-2 mt-4">
-        <div v-for="i in 3" 
+        <div v-for="i in 2" 
             :key="i" 
             :class="['h-3 w-3 rounded-full', step >= i ? 'bg-blue-600' : 'bg-gray-300']">
         </div>
@@ -44,6 +44,7 @@
                     <div class="mt-1">
                     <input type="text" v-model="username" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent">
                     </div>
+                    <p v-if="formSubmitted && !username" class="text-red-500 text-xs italic">Please enter a username.</p>
                 </div>
 
                 <div class="mt-5">
@@ -51,6 +52,7 @@
                     <div class="mt-1">
                     <input type="password" v-model="password" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent">
                     </div>
+                    <p v-if="formSubmitted && !password" class="text-red-500 text-xs italic">Please enter a password.</p>
                 </div>
 
                 <div class="mt-5">
@@ -58,22 +60,24 @@
                     <div class="mt-1">
                     <input type="text" v-model="email" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent">
                     </div>
+                    <p v-if="formSubmitted && !email" class="text-red-500 text-xs italic">Please enter an email.</p>
                 </div>
 
                 <div class="mt-5">
                     <label for="text"  class="block text-sm font-medium text-gray-700 my-2">Phone Number</label>
                     <div class="mt-1">
-                    <input type="number"  v-model="phoneNumber" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent">
+                      <input type="number" name="phoneNumber" v-model="phoneNumber" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent">
                     </div>
+                    <p v-if="formSubmitted && !phoneNumber" class="text-red-500 text-xs italic">Please enter a phone number.</p>
                 </div>
             
                 <p class="mt-2 text-center text-sm text-gray-600 my-2">
                  <a href="/Login" class="font-medium text-blue-600 hover:text-blue-500">login to your account</a>
                 </p>
                 <div class="flex justify-end">
-                <button type="button" :disabled="!stepOne"  class="py-2 px-4 border border-gray-300 rounded-md text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600" @click="step = 2">
+                  <button type="button" class="py-2 px-4 border border-gray-300 rounded-md text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600" @click="formSubmitted = true; if (stepOne) { step = 2 }">
                     Next
-                </button>
+                  </button>
                 </div>
             </div>
             
@@ -84,6 +88,7 @@
                     <div class="mt-1">
                     <textarea type="text" v-model="bio" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"></textarea>
                     </div>
+                    <p v-if="formSubmitted && !bio" class="text-red-500 text-xs italic">Please enter a bio.</p>
                 </div>
 
                 <div>
@@ -91,6 +96,7 @@
                     <div class="mt-1">
                     <input type="text" v-model="location" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent">
                     </div>
+                    <p v-if="formSubmitted && !location" class="text-red-500 text-xs italic">Please enter a location.</p>
                 </div>
 
                 <div>
@@ -104,13 +110,14 @@
                         <option value="Meal Preparation">Meal Preparation</option>
                     </select>
                     </div>
+                    <p v-if="formSubmitted && !jobTitle" class="text-red-500 text-xs italic">Please enter a jobTitle.</p>
                 </div>
 
                 <div class="flex justify-between">
                     <button type="button" class="py-2 px-4 border border-gray-300 rounded-md text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600" @click="step = 1">
                     Back
                     </button>
-                    <button type="submit"  :disabled="bio === '' ||location === '' || jobTitle === ''" class="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600">
+                    <button type="submit" class="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600">
                       Create account
                     </button>
                 </div>
@@ -130,6 +137,7 @@ export default {
     return {
       step: 1,
       imageUrl: null,
+      accountType: 'Applicant',
       username: '',
       password: '',
       email: '',
@@ -138,6 +146,7 @@ export default {
       location: '',
       jobTitle: '',
       HandelError: '',
+      formSubmitted: false
     }
   },
 
@@ -155,29 +164,45 @@ export default {
     },
 
     signup() {
-    axios.post("http://localhost:5000/authentication/signup", {
-      username: this.username,
-      password: this.password,
-      email: this.email,
-      phoneNumber: this.phoneNumber,
-      bio: this.bio,
-      location: this.location,
-      jobTitle: this.jobTitle
-    }),
-    this.$router.push('/login')
-  .catch(error => {
-    if (error.response?.status === 401) {
-      this.HandelError = "Email is already taken"
-    }
-  });
-}
-  },
+      this.formSubmitted = true;
+      if (!this.bio || !this.location || !this.jobTitle) {
+        return;
+      } else{axios.post("http://localhost:5000/authentication/signup", {
+        accountType: this.accountType,
+        username: this.username,
+        password: this.password,
+        email: this.email,
+        phoneNumber: this.phoneNumber,
+        bio: this.bio,
+        location: this.location,
+        jobTitle: this.jobTitle
+      })
+      .then(() => {
+      // Redirect to login page on successful signup
+      this.$router.push('/login');
+    })
+    .catch(error => {
+      if (error.response?.status === 401) {
+        this.HandelError = "Email is already taken"
+      }
+    });
+   }
+  }
+},
 
   computed: {
   stepOne() {
-    return this.username && this.password && this.email && this.phoneNumber ;
+    if (!this.username || !this.password || !this.phoneNumber) {
+      return false;
+    }
+    if (!this.email || !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(this.email)) {
+      this.HandelError =  'Please enter a valid email address';
+      return false;
+    }
+    this.HandelError = '';
+    return true;
   },
-},
+}
 }
 </script>
 

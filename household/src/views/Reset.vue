@@ -5,6 +5,9 @@
       </div>
   
       <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div v-if="HandelError" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-2" role="alert">
+            <span class="block sm:inline text-center">{{ HandelError }}</span>
+        </div>
         <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 border-solid border-2 border-blue-600">
           <form @submit.prevent="reset" class="space-y-6">
                   <p class="mb-5 text-center text-sm text-gray-600 font-medium">Enter your email</p>
@@ -14,13 +17,15 @@
                     <div class="mt-1">
                     <input type="password" v-model="password" :class="{ 'border-red-500': formSubmitted && !password }" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent">
                     </div>
+                    <p v-if="formSubmitted && !password" :class="{ 'text-red-500 text-xs italic': formSubmitted && !password }" >Include password.</p>
                   </div>
 
                   <div class="mt-5">
                     <label for="confirmPassword" class="block text-sm font-medium text-gray-700 my-2">Confirm Password</label>
                     <div class="mt-1">
-                    <input type="password" v-model="confirmPassword" :class="{ 'border-red-500': formSubmitted && !confirmPassword }" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent">
+                    <input type="password" v-model="confirm_password" :class="{ 'border-red-500': formSubmitted && !confirm_password }" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent">
                     </div>
+                    <p v-if="formSubmitted && !confirm_password" :class="{ 'text-red-500 text-xs italic': formSubmitted && !confirm_password }" >Include confirm Password.</p>
                   </div>
 
                   <div class="flex justify-center">
@@ -35,21 +40,36 @@
   </template>
 
 <script>
+import axios from "axios";
+
 export default {
     data() {
     return {
-        password: '',
-        confirmPassword:'',
-      formSubmitted: false
+      password: '',
+      confirm_password:'',
+      formSubmitted: false,
+      HandelError: '',
     }
   },
   methods: {
     reset(){
-        this.formSubmitted = true;
-        if (!this.password || !this.confirmPassword ) {
+      this.formSubmitted = true;
+        if (!this.password || !this.confirm_password) {
         return;
-      }
-       console.log(this.password, this.confirmPassword );
+      }else{
+        axios.put(`http://localhost:5000/authentication/reset/${this.$route.params.id}`, {
+         password: this.password,
+         confirm_password: this.confirm_password,
+       })
+       .then(() => {
+        this.$router.push('/jobs');
+      })
+      .catch(error => {
+        if (error.response?.status === 400) {
+          this.HandelError = "Password Does Not Much"
+          }
+      });
+    }
    },
 }
 }

@@ -5,6 +5,9 @@
       </div>
   
       <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div v-if="HandelError" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-2" role="alert">
+            <span class="block sm:inline text-center">{{ HandelError }}</span>
+        </div>
         <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 border-solid border-2 border-blue-600">
           <form @submit.prevent="forgot" class="space-y-6">
                   <p class="mb-5 text-center text-sm text-gray-600 font-medium">Enter your email</p>
@@ -28,20 +31,36 @@
   </template>
 
 <script>
+import axios from "axios";
+
 export default {
     data() {
     return {
       email: '',
-      formSubmitted: false
+      HandelError: '',
     }
   },
   methods: {
   forgot(){
-        this.formSubmitted = true;
-        if (!this.email ) {
+      if (!this.email) {
+        this.HandelError = "Include email address";
         return;
-      }
-       console.log(this.email );
+      }else if(!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(this.email)) {
+        this.HandelError = "Invalid email address";
+        return;
+      }else{
+        axios.post("http://localhost:5000/authentication/forgotPassword", {
+        email: this.email,
+       })
+       .then(() => {
+      this.email = "";
+      })
+      .catch(error => {
+        if (error.response?.status === 404) {
+          this.HandelError = "Email Does Not Exist"
+          }
+      });
+    }
    },
 }
 }

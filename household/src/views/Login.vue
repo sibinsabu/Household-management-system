@@ -18,13 +18,15 @@
                       <div class="mt-1">
                       <input type="text" v-model="email" :class="{ 'border-red-500': formSubmitted && !email }" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent">
                       </div>
+                      <p v-if="formSubmitted && !email" :class="{ 'text-red-500 text-xs italic': formSubmitted && !email }" >Include email.</p>
                   </div>
   
                   <div class="mt-5">
-                      <label for="password" class="block text-sm font-medium text-gray-700 my-2">Password</label>
+                      <label for="email" class="block text-sm font-medium text-gray-700 my-2">Password</label>
                       <div class="mt-1">
                       <input type="password" v-model="password" :class="{ 'border-red-500': formSubmitted && !password }" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent">
                       </div>
+                      <p v-if="formSubmitted && !password" :class="{ 'text-red-500 text-xs italic': formSubmitted && !password }" >Include Password.</p>  
                   </div>
               
                   <p class="mt-2 text-center text-sm text-gray-600 my-2">
@@ -65,11 +67,13 @@ data() {
         email: this.email,
         password: this.password,
        })
-      .then(response => {
-         const user = response.data.user;
+       .then(response => {
+          const user = response.data.user;
           localStorage.setItem("user", JSON.stringify(user));
-          this.$store.dispatch("LOGIN", user);
+          this.$store.commit('LOGIN', user),
+          this.$router.push({ name: 'Jobs' });
         })
+      
       .catch(error => {
         if (error.response?.status === 401) {
           this.HandelError = "Invalid login credentials"

@@ -13,17 +13,16 @@ const createToken = (id, name, email) => {
       },
       JWT_SECRET,{ expiresIn: "3d" }
     );
-  };
+};
   
   
   
-  const signup = async (req, res) => {
+const signup = async (req, res) => {
     const { username, email, password, phoneNumber, accountType, jobTitle, AboutMe, location} = req.body;
     const encryptPassword = await bcrypt.hash(password, 1);
   
-    const checkingIfEmailExists = await User.findOne({ where: { email: email } }); // find email in database
+    const checkingIfEmailExists = await User.findOne({ where: { email: email } });
     if (checkingIfEmailExists) {
-      // if the email much send 401
       return res.status(401).json({
         success: false,
         message: "Email already exists",
@@ -47,13 +46,31 @@ const createToken = (id, name, email) => {
               user:'ma07041705@gmail.com',
               pass:"uagrmlhtgykwbrrr"
             }
-          })
+        })
 
         const mailOption={
-            to:`${user.email}`,
-            subject:"Household",
-            html:'<p>You have successfully signed up for our household application. We are excited to have you on board and look forward to helping you manage your home efficiently!</p>'
-          }
+            to: `${user.email}`,
+            subject: "Welcome to Household App!",
+            html: `
+              <html>
+                <head>
+                </head>
+                <body>
+                  <table style="border-collapse: collapse;">
+                    <tr>
+                      <td style="padding: 20px;">
+                        <h1 style="font-size: 28px; margin-top: 0;">Household</h1>
+                        <h1 style="font-size: 28px; margin-top: 0;">Welcome to Household App!</h1>
+                        <p style="font-size: 18px;">You have successfully signed up for our household application. We are excited to have you on board and look forward to helping you manage your home efficiently!</p>
+                        <p style="font-size: 18px;">Please click the button below to confirm your email address:</p>
+                      </td>
+                    </tr>
+                  </table>
+                </body>
+              </html>
+            `
+        }
+          
           
         transporter.sendMail(mailOption,(err ,response)=>{
             if(err){
@@ -65,16 +82,16 @@ const createToken = (id, name, email) => {
         })
   
         const token = createToken(user.id, user.name, user.email);
-        return res.status(200).json({
-          success: true,
-          user: {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            token: token,
-            role: user.role,
-          },
-        });
+          return res.status(200).json({
+            success: true,
+            user: {
+              id: user.id,
+              name: user.name,
+              email: user.email,
+              token: token,
+              role: user.role,
+            },
+          });
       } catch (error) {
         return res.json({ message: error.message });
       }
@@ -116,11 +133,11 @@ const createToken = (id, name, email) => {
           success: true,
           user: {
             id: foundUser.id,
-            name: foundUser.name,
+            name: foundUser.username,
             email: foundUser.email,
+            accountType: foundUser.accountType,
             token: token,
-            role: foundUser.role,
-            userStatus: foundUser.userStatus,
+           
           },
         });
       }
@@ -134,7 +151,7 @@ const createToken = (id, name, email) => {
     
     try {
       if (!email ) {
-        return res.status(40).json({
+        return res.status(400).json({
           success: false,
           message: "Email Does Not Exist",
         });
@@ -142,10 +159,12 @@ const createToken = (id, name, email) => {
         
       const user = await User.findOne({ where: { email: email } });
       if(!user){
-        res.status(404).json({msg:'email does not  exists'})
+        return res.status(404).json({
+          success: false,
+          message:'email does not  exists'
+        })
         
       }else{
-      //create a nodeMailer Transport
       const transporter = nodemailer.createTransport({
         service:'gmail',
         auth:{
@@ -154,13 +173,31 @@ const createToken = (id, name, email) => {
   
         }
       })
-      //email option 
-      const mailOption={
-        // from:'brian@gmail.com',
-        to:`${user.email}`,
-        subject:"Forgot password link",
-        html:'<p>You requested for reset password, You have this email because you have request to recover your account Click on the following link bellow to proceed the link will expire in 5 min <a href="http://localhost:3000/resetPassword/' + user.id + '">Forgot Password</a> if you did not request this please ignore this email and your password will remain the same</p>'
-      }
+      
+      const mailOption = {
+        to: `${user.email}`,
+        subject: "Reset Your Password - Household",
+        html: `
+          <html>
+            <head>
+            </head>
+            <body>
+              <table style="border-collapse: collapse;">
+                <tr>
+                  <td style="padding: 20px;">
+                    <h1 style="font-size: 28px; margin-top: 0;">Reset Your Password</h1>
+                    <p style="font-size: 18px;">You received this email because you requested to reset your password on YourCompanyName. If you did not make this request, you can safely ignore this email.</p>
+                    <p style="font-size: 18px;">To reset your password, please click the button below. The link will expire in 5 minutes:</p>
+                    <div style="margin-top: 30px; text-align: center;">
+                      <a href="http://localhost:8080/reset-password/${user.id}" style="background-color: #4CAF50; color: white; padding: 14px 20px; border: none; border-radius: 4px; text-decoration: none; font-size: 18px;">Reset Password</a>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </body>
+          </html>
+        `
+      }      
       
       transporter.sendMail(mailOption,(err ,response)=>{
         if(err){
