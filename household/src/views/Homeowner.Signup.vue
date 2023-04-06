@@ -23,7 +23,7 @@
             <div v-show="step === 1">
                  <p class="mb-5 text-center text-sm text-gray-600 font-medium">Enter your signUp credential</p>
 
-                 <!-- <div class="relative rounded-md shadow-sm">
+                 <div class="relative rounded-md shadow-sm">
                     <input type="file" id="imageUpload" name="imageUpload" class="sr-only" @change="handleImageChange">
                      <div class="flex items-center justify-center px-6 py-3 bg-white text-blue-600 rounded-md hover:bg-blue-100 hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600">
                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -31,11 +31,11 @@
                           </svg>
                           <label for="imageUpload" class="">Upload an image</label>
                       </div>
-
-                  </div> -->
+                      <p v-if="formSubmitted && !image" class="text-red-500 text-xs italic">Please select an image.</p>
+                  </div>
 
                 <div class="flex justify-center">
-                <img :src="imageUrl" v-if="imageUrl" class="max-h-60 mt-3 rounded-full ">
+                <img :src="image" v-if="image" class="max-h-60 mt-3 rounded-full ">
                 </div>
 
                 <div class="mt-5">
@@ -83,11 +83,11 @@
             <div class="space-y-6" v-show="step === 2">
                 <p class="mt-2 text-center text-sm text-gray-600 font-medium">credential</p>
                 <div>
-                    <label for="username" class="block text-sm font-medium text-gray-700 my-2">Bio</label>
+                    <label for="username" class="block text-sm font-medium text-gray-700 my-2">AboutMe</label>
                     <div class="mt-1">
-                    <textarea type="text" v-model="bio" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"></textarea>
+                    <textarea type="text" v-model="AboutMe" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"></textarea>
                     </div>
-                    <p v-if="formSubmitted && !bio" class="text-red-500 text-xs italic">Please enter a bio.</p>
+                    <p v-if="formSubmitted && !AboutMe" class="text-red-500 text-xs italic">Please enter a AboutMe.</p>
                 </div>
 
                 <div>
@@ -122,13 +122,13 @@ export default {
   data() {
     return {
       step: 1,
-      imageUrl: null,
+      image: null,
       accountType: 'Homeowner',
       username: '',
       password: '',
       email: '',
       phoneNumber: '',
-      bio: '',
+      AboutMe: '',
       location: '',
       HandelError: '',
       formSubmitted: false
@@ -144,7 +144,7 @@ export default {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
-        this.imageUrl = reader.result;
+        this.image = reader.result;
       };
     },
 
@@ -176,7 +176,7 @@ export default {
 
   computed: {
   stepOne() {
-    if (!this.username || !this.password || !this.phoneNumber) {
+    if (!this.username || !this.password || !this.phoneNumber || !this.image) {
       return false;
     }
     if (!this.email || !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(this.email)) {
