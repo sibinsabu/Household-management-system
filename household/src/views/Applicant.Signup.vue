@@ -1,9 +1,7 @@
 <template>
   <div class="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
-      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-        Create an account
-      </h2>
+      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Create an account</h2>
     </div>
 
    <!-- status bar -->
@@ -25,7 +23,7 @@
                  <p class="mb-5 text-center text-sm text-gray-600 font-medium">Enter your signUp credential</p>
 
                  <div class="relative rounded-md shadow-sm">
-                    <input type="file" id="imageUpload" name="imageUpload" class="sr-only" @change="handleImageChange">
+                    <input type="file" id="imageUpload" name="imageUpload" class="sr-only" @change="handleFileChange">
                      <div class="flex items-center justify-center px-6 py-3 bg-white text-blue-600 rounded-md hover:bg-blue-100 hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600">
                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
@@ -152,31 +150,36 @@ export default {
   },
 
   methods: {
-    handleImageChange(event) {
+    handleFileChange(event) {
+      this.image = event.target.files[0];
+
       const file = event.target.files[0];
-      if (!file) {
-        return;
-      }
       const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.image = reader.result;
+      reader.onload = (event) => {
+        this.image = event.target.result;
       };
+      reader.readAsDataURL(file);
     },
 
     signup() {
       this.formSubmitted = true;
       if (!this.AboutMe || !this.location || !this.jobTitle) {
         return;
-      } else{axios.post(`${SERVER_URL}/authentication/signup`, {
-        accountType: this.accountType,
-        username: this.username,
-        password: this.password,
-        email: this.email,
-        phoneNumber: this.phoneNumber,
-        AboutMe: this.AboutMe,
-        location: this.location,
-        jobTitle: this.jobTitle
+      } else{
+        const formData = new FormData();
+        formData.append('accountType', this.accountType)
+        formData.append('image', this.image);
+        formData.append('username', this.username)
+        formData.append('password', this.password)
+        formData.append('email', this.email)
+        formData.append('phoneNumber', this.phoneNumber)
+        formData.append('AboutMe', this.AboutMe)
+        formData.append('location', this.location)
+        formData.append('jobTitle', this.jobTitle)
+        axios.post(`${SERVER_URL}/authentication/signup`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
       })
       .then(() => {
       this.$router.push('/login');
