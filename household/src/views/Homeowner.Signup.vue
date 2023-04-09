@@ -33,7 +33,7 @@
                   </div>
 
                 <div class="flex justify-center">
-                <img :src="image" v-if="image" class="max-h-60 mt-3 rounded-full ">
+                <img :src="imageUrl" v-if="image" class="max-h-60 mt-3 rounded-full ">
                 </div>
 
                 <div class="mt-5">
@@ -136,13 +136,6 @@ export default {
   methods: {
     handleFileChange(event) {
       this.image = event.target.files[0];
-      
-      const file = event.target.files[0];
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        this.image = event.target.result;
-      };
-      reader.readAsDataURL(file);
     },
 
     signup() {
@@ -188,6 +181,9 @@ export default {
     this.HandelError = '';
     return true;
   },
+  imageUrl() {
+      return this.image ? URL.createObjectURL(this.image) : "";
+    },
   }
 }
 </script>

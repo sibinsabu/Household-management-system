@@ -5,6 +5,9 @@ const Users = database.define("users",{
     username:{
         type: DataTypes.STRING,
     },
+    image:{
+        type: DataTypes.STRING,
+    },
     email:{
         type: DataTypes.STRING,
     },

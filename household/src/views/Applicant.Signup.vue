@@ -33,9 +33,9 @@
                       <p v-if="formSubmitted && !image" class="text-red-500 text-xs italic">Please select an image.</p>
                   </div>
 
-                <div class="flex justify-center">
-                <img :src="image" v-if="image" class="max-h-60 mt-3 rounded-full ">
-                </div>
+                  <div class="flex justify-center">
+                   <img :src="imageUrl" v-if="image" class="max-h-60 mt-3 rounded-full ">
+                  </div>
 
                 <div class="mt-5">
                     <label for="username" class="block text-sm font-medium text-gray-700 my-2">Username</label>
@@ -153,12 +153,6 @@ export default {
     handleFileChange(event) {
       this.image = event.target.files[0];
 
-      const file = event.target.files[0];
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        this.image = event.target.result;
-      };
-      reader.readAsDataURL(file);
     },
 
     signup() {
@@ -205,6 +199,9 @@ export default {
     this.HandelError = '';
     return true;
   },
+  imageUrl() {
+      return this.image ? URL.createObjectURL(this.image) : "";
+    },
 }
 }
 </script>

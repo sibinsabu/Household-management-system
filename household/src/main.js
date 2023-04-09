@@ -9,6 +9,18 @@ import { fab} from '@fortawesome/free-brands-svg-icons';
 import { fas } from '@fortawesome/free-solid-svg-icons'
 library.add(fab, fas)
 
+
+
+router.beforeEach(() => {
+    store.dispatch('CHECK_TOKEN_EXPIRATION');
+  });
+  
+  // Call CHECK_TOKEN_EXPIRATION action every 5 minutes
+  setInterval(() => {
+    store.dispatch('CHECK_TOKEN_EXPIRATION');
+  }, 5 * 60 * 1000);
+  
+
 createApp(App)
 .component('fa', FontAwesomeIcon)
 .use(store).use(router).mount('#app')

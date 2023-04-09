@@ -1,4 +1,6 @@
 import { createStore } from 'vuex'
+import jwt_decode from 'jwt-decode';
+import router from '@/router'; // <-- Import router here
 
 export default createStore({
   state: {
@@ -18,6 +20,29 @@ export default createStore({
     },
   },
   actions: {
+    CHECK_TOKEN_EXPIRATION({ state, commit }) {
+      if (!state.user || !state.user.token) {
+        return;
+      }
+      const decodedToken = jwt_decode(state.user.token);
+      if (!decodedToken.exp) {
+        console.error('Token does not have expiration time:', state.user.token);
+        return;
+      }
+      const expirationDate = new Date(decodedToken.exp * 1000);
+      const currentTime = new Date();
+      const timeDifference = expirationDate.getTime() - currentTime.getTime();
+      if (timeDifference <= 0) {
+        commit('LOGOUT');
+        router.push('/Login');
+      } else {
+        setTimeout(() => {
+          commit('LOGOUT');
+          router.push('/Login');
+        }, timeDifference);
+      }
+    },
+    
   },
   modules: {
   }
