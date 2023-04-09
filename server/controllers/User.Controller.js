@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const JWT = require("jsonwebtoken");
 const { JWT_SECRET } = require("../constant/index");
 const nodemailer =require('nodemailer')
+const cloudinary = require("cloudinary").v2;
 
 
 const createToken = (id, name, email) => {
@@ -15,12 +16,26 @@ const createToken = (id, name, email) => {
     );
 };
   
-  
+cloudinary.config({
+  cloud_name: "dows56r9v",
+  api_key: "296524897655252",
+  api_secret: "LSawka1n4AuQ-nrhVcDdaGlqSgI"
+});
   
 const signup = async (req, res) => {
     const { username, email, password, phoneNumber, accountType, jobTitle, AboutMe, location} = req.body;
+
+    if(!username || !email || !password || !phoneNumber || !accountType || !AboutMe || !location){
+      return res.status(400).json({
+        success: false,
+        message: "All Fields Are Required",
+      });
+    }
+
     const encryptPassword = await bcrypt.hash(password, 1);
   
+    const result = await cloudinary.uploader.upload(req.file.path, { folder: "Users" })
+
     const checkingIfEmailExists = await User.findOne({ where: { email: email } });
     if (checkingIfEmailExists) {
       return res.status(401).json({
@@ -38,6 +53,7 @@ const signup = async (req, res) => {
           jobTitle: jobTitle,
           AboutMe: AboutMe,
           location: location,
+          image: result.secure_url,
         });
 
         const transporter = nodemailer.createTransport({
@@ -89,7 +105,6 @@ const signup = async (req, res) => {
               name: user.name,
               email: user.email,
               token: token,
-              role: user.role,
             },
           });
       } catch (error) {
