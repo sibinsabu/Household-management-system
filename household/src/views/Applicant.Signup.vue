@@ -34,7 +34,7 @@
                   </div>
 
                   <div class="flex justify-center">
-                   <img :src="imageUrl" v-if="image" class="max-h-60 mt-3 rounded-full ">
+                   <img :src="imageUrl" v-if="image" class="w-60 h-60  mr-5 mt-3 rounded-full">
                   </div>
 
                 <div class="mt-5">

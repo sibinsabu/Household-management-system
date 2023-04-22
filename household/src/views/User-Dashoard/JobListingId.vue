@@ -2,7 +2,7 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 my-20 mt-40">
 
       
-      <!-- <div class="grid grid-cols-1 gap-4 lg:grid-cols-3 px-2">
+      <div v-if="user && user.accountType === 'Applicant'" class="grid grid-cols-1 gap-4 lg:grid-cols-3 px-2">
         <div class="col-span-2 border bg-white rounded-lg p-4 mt-5">
           <div class="flex items-center justify-between mb-4">
             <div>
@@ -53,10 +53,10 @@
               </div>
             </div>
         </div>
-      </div> -->
+      </div>
 
 
-       <div class="bg-white border rounded-lg px-4 mx-2 py-5 sm:p-6 mt-10">
+       <div  v-else class="bg-white border rounded-lg px-4 mx-2 py-5 sm:p-6 mt-10">
           <div class="flex items-center justify-between mb-4">
             <div>
               <span class="text-2xl font-bold mb-2 uppercase">Job title: </span>

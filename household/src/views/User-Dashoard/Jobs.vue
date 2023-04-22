@@ -1,6 +1,7 @@
 <template>
     <div class="my-20">
-         <h1 class="text-4xl font-bold text-center text-gray-900">Find Your Dream Job</h1>
+         <h1 v-if="user && user.accountType === 'Applicant'" class="text-4xl font-bold text-center text-gray-900">Find Your Dream Job</h1>
+         <h1 v-else-if="user && user.accountType === 'Homeowner'" class="text-4xl font-bold text-center text-gray-900">Job Listing</h1>
 
 
       <div class="w-full max-w-7xl mx-auto py-10">
@@ -27,7 +28,7 @@
        </div>
       </div>
   
-      <!-- <div class="w-full max-w-7xl mx-auto">
+      <div v-if="user && user.accountType === 'Applicant'" class="w-full max-w-7xl mx-auto">
         <div class="grid gap-5 lg:grid-cols-2 px-5">
           <div v-for="job in jobs" :key="job.id" class="bg-white rounded-lg shadow-lg mb-8 p-6 hover:shadow-xl transition-shadow duration-300">
             <h2 class="text-2xl font-bold mb-2 text-purple-800"><a href="/JobListingById">{{ job.title }}</a></h2>
@@ -46,9 +47,9 @@
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
 
-      <div class="w-full max-w-7xl mx-auto">
+      <div v-else-if="user && user.accountType === 'Homeowner'" class="w-full max-w-7xl mx-auto">
         <div class="grid gap-5 lg:grid-cols-2 px-5">
           <div v-for="job in jobs" :key="job.id" class="bg-white rounded-lg shadow-lg mb-8 p-6 hover:shadow-xl transition-shadow duration-300">
             <h2 class="text-2xl font-bold mb-2 text-purple-800"><a href="/JobListingById">{{ job.title }}</a></h2>
@@ -94,6 +95,11 @@
        
       };
     },
+  computed: {
+    user() {
+      return this.$store.state.user;
+    },
+  },
     methods: {
       formatDate(dateString) {
         const date = new Date(dateString);
@@ -109,7 +115,4 @@
   </script>
   
 
-<style scoped>
-
-</style>
   

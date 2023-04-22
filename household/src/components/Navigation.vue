@@ -10,28 +10,28 @@
           </div>
   
            <div :class="{'hidden md:flex flex-1 justify-center space-x-6': !showMobileMenu, 'flex flex-col  bg-white absolute top-16 left-0 right-0 shadow-lg': showMobileMenu}" >
-              <router-link  link @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:hidden': !showMobileMenu,
-              'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0 md:hidden': showMobileMenu }" :to="{ name: 'Profile' }">
+              <router-link @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:hidden': !showMobileMenu,
+              'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0 md:hidden': showMobileMenu }" :to="{ name: 'Profile', params:{ id:user.id} }">
                  Profile
               </router-link>
               
-              <router-link  link @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block': !showMobileMenu,
+              <router-link @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block': !showMobileMenu,
               'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0': showMobileMenu }" :to="{ name: 'Saved-Jobs' }">
                 Saved Jobs 
               </router-link>
   
-              <router-link  link @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block': !showMobileMenu,
+              <router-link @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block': !showMobileMenu,
               'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0': showMobileMenu }" :to="{ name: 'Post' }">
                 Post 
               </router-link>
   
-              <router-link  link @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block': !showMobileMenu,
+              <router-link  @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block': !showMobileMenu,
               'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0': showMobileMenu }" :to="{ name: 'Reviews' }">
                 Reviews  
               </router-link>
   
   
-              <router-link  link @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:hidden': !showMobileMenu,
+              <router-link  @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:hidden': !showMobileMenu,
               'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0': showMobileMenu }" :to="{ name: 'contact' }">
                 logOut
               </router-link>
@@ -40,11 +40,11 @@
            <div class="hidden md:block">
                 <div class="relative">
                   <button class="flex items-center text-gray-800" @click="showDropdown = !showDropdown">
-                    <img src="../assets/images/photo-1633332755192-727a05c4013d.jpg" alt="Profile image" class="w-8 h-8 rounded-full mr-5">
+                    <img :src="user.image" alt="Profile image" class="w-8 h-8 rounded-full mr-5">
                   </button>
   
                   <div v-if="showDropdown" id="dropdown-menu" class="absolute top-full right-0 mt-2 py-2 bg-white rounded-md shadow-lg z-10">
-                    <a href="/Profile" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Profile</a>
+                    <router-link @click="showDropdown = false"  :to="{ name: 'Profile', params:{ id:user.id} }" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Profile</router-link>
                     <a @click="logout" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 cursor-pointer">Logout</a>
                   </div>
                 </div>
@@ -69,27 +69,27 @@
           </div>
   
             <div :class="{'hidden md:flex flex-1 justify-center space-x-6': !showMobileMenu, 'flex flex-col  bg-white absolute top-16 left-0 right-0 shadow-lg': showMobileMenu}" >
-              <router-link  link @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:hidden': !showMobileMenu,
-              'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0 md:hidden': showMobileMenu }" :to="{ name: 'Profile' }">
+              <router-link  @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:hidden': !showMobileMenu,
+              'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0 md:hidden': showMobileMenu }" :to="{ name: 'Profile', params:{ id:user.id} }">
                  Profile
               </router-link>
               
-              <router-link  link @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block': !showMobileMenu,
+              <router-link  @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block': !showMobileMenu,
               'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0': showMobileMenu }" :to="{ name: 'Create-job-listing' }">
                 Create Job Listing 
               </router-link>
   
-              <router-link  link @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block': !showMobileMenu,
+              <router-link  @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block': !showMobileMenu,
               'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0': showMobileMenu }" :to="{ name: 'Post' }">
                 Post 
               </router-link>
   
-              <router-link  link @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block': !showMobileMenu,
+              <router-link  @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block': !showMobileMenu,
               'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0': showMobileMenu }" :to="{ name: 'Reviews' }">
                 Reviews  
               </router-link>
   
-              <router-link  link @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:hidden': !showMobileMenu,
+              <router-link @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:hidden': !showMobileMenu,
               'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0': showMobileMenu }" :to="{ name: 'contact' }">
                 logOut
               </router-link>
@@ -98,11 +98,11 @@
            <div class="hidden md:block">
                 <div class="relative">
                   <button class="flex items-center text-gray-800" @click="showDropdown = !showDropdown">
-                    <img src="../assets/images/photo-1633332755192-727a05c4013d.jpg" alt="Profile image" class="w-8 h-8 rounded-full mr-5">
+                    <img :src="user.image" alt="Profile image" class="w-8 h-8 rounded-full mr-5">
                   </button>
   
                   <div v-if="showDropdown" id="dropdown-menu" class="absolute top-full right-0 mt-2 py-2 bg-white rounded-md shadow-lg z-10">
-                    <a href="/Profile" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Profile</a>
+                    <router-link @click="showDropdown = false" :to="{ name: 'Profile', params:{ id:user.id} }" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Profile</router-link>
                     <a @click="logout" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 cursor-pointer">Logout</a>
                   </div>
                 </div>
@@ -174,12 +174,12 @@ export default {
         showDropdown: false,
         
       }
-    },
+  },
   computed: {
   user() {
     return this.$store.state.user;
   },
-},
+  },
   created() {
     console.log(this.$store.state.user);
   },
