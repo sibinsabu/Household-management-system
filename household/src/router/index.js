@@ -14,6 +14,7 @@ import  ResetVue from '../views/Reset.vue'
 import  Jobs from '../views/User-Dashoard/Jobs.vue'
 import  jobListingId from '../views/User-Dashoard/JobListingId.vue'
 import  Profile from '../views/User-Dashoard/Profile.vue'
+import  UpdateProfile from '../views/User-Dashoard/UpdateProfile.vue'
 import  SavedJobs from '../views/User-Dashoard/SavedJobs.vue'
 import  Post from '../views/User-Dashoard/Post.vue'
 import Reviews from '../views/User-Dashoard/Reviews.vue'
@@ -169,7 +170,7 @@ const routes = [
     beforeEnter: requireAuth
   },
   {
-    path: '/Profile',
+    path: '/Profile/:id',
     name: 'Profile',
     component: Profile,
     meta: {
@@ -181,6 +182,15 @@ const routes = [
     path: '/public-profile',
     name: 'PublicProfile',
     component:  PublicProfile,
+    meta: {
+      requiresAuth: true
+    },
+    beforeEnter: requireAuth
+  },
+  {
+    path: '/profile/UpdateProfile/:id',
+    name: 'UpdateProfile',
+    component:  UpdateProfile,
     meta: {
       requiresAuth: true
     },

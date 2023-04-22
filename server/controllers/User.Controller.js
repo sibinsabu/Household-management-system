@@ -142,14 +142,14 @@ const signup = async (req, res) => {
           message: "Invalid login credentials",
         });
       } else {
-        const token = createToken(foundUser.id, foundUser.name, foundUser.email);
+        const token = createToken(foundUser.id, foundUser.name, foundUser.image);
   
         return res.status(200).json({
           success: true,
           user: {
             id: foundUser.id,
             name: foundUser.username,
-            email: foundUser.email,
+            image: foundUser.image,
             accountType: foundUser.accountType,
             token: token,
            
@@ -285,6 +285,34 @@ const signup = async (req, res) => {
   };
   
 
+  const updateUserProfile = async (req, res) => {
+    const { username, email, phoneNumber, accountType, jobTitle, AboutMe, location} = req.body;
+
+    if(!username || !email || !phoneNumber || !jobTitle || !accountType || !AboutMe || !location){
+      return res.status(400).json({
+        success: false,
+        message: "All Fields Are Required",
+      });
+    }
+
+    try {
+      const updatedUser = await User.update({
+        username: username,
+        email: email,
+        phoneNumber: phoneNumber,
+        accountType: accountType,
+        jobTitle: jobTitle,
+        AboutMe: AboutMe,
+        location: location,
+      }, { where: { id: req.params.id}})
+      res.status(200).json({
+        success: true,
+        user: updatedUser,
+      });
+    } catch (error) {
+      res.json({ message: error.message });
+    }
+  };
   
   
   module.exports = {
@@ -293,5 +321,6 @@ const signup = async (req, res) => {
     getUserById,
     forgotPassword,
     resetPassword,
+    updateUserProfile
   };
   
