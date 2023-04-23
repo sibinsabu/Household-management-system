@@ -10,9 +10,11 @@
                 <span class=" text-center">{{ HandelSuccess }}</span>
             </div>
 
-          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4 mx-3">
             <label class="block font-medium text-gray-700 mb-2" for="name"> Image </label>
-            <img class="w-20 h-20 rounded-full" :src="userProfile.image" alt="Banner Image">
+            <p align="center">
+              <img class="w-20 h-20 rounded-full" :src="userProfile.image" alt="Banner Image">
+            </p>
 
             <label class="block font-medium text-gray-700 mb-2" for="name"> Name </label>
             <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text"  v-model="userProfile.username" />
