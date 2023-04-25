@@ -1,5 +1,6 @@
 const Blog = require('../models/Blog.Model')
 const User = require('../models/User.Model')
+const cloudinary = require("cloudinary").v2;
 
 
 function getCurrentDate() {
@@ -10,19 +11,37 @@ function getCurrentDate() {
     return `${year}-${month}-${day}`;
   }
 
+  cloudinary.config({
+    cloud_name: "dows56r9v",
+    api_key: "296524897655252",
+    api_secret: "LSawka1n4AuQ-nrhVcDdaGlqSgI"
+  });
+
+
 const createBlog = async (req, res) => {
-    const { user_id, description} = req.body;
+    const { description} = req.body;
+    const user_id = req.user.id;
     const date = getCurrentDate();
 
+    if(!description){
+      return res.status(400).json({
+        success: falsce,
+        message: "All Fields Are Required",
+      });
+    }
+    const result = await cloudinary.uploader.upload(req.file.path, { folder: "Blogs" });
+
     try {
-        await Blog.create({
-           user_id: user_id,
-           description: description,
-           date: date,
-        });
-        res.json({
-            "message": "Created"
-        });
+      const blog = await Blog.create({
+        user_id: user_id,
+        description: description,
+        date: date,
+        image: result.secure_url,
+      });
+      return res.status(200).json({
+        success: true,
+        blog
+      });
     } catch (error) {
         res.json({ message: error.message });
     }  
@@ -34,15 +53,38 @@ const getAllBlog = async (req, res) => {
       const blogs = await Blog.findAll({
         include: [{
           model: User,
-          attributes: ['username', 'email', 'phoneNumber', 'accountType', 'jobTitle', 'AboutMe', 'location']
+          attributes: ['username', 'email', 'phoneNumber', 'accountType', 'jobTitle', 'AboutMe', 'location', 'image']
         }]
       });
-      res.json({ blogs });
+       return res.status(201).json({
+      success: true,
+       blogs,
+    });
     } catch (error) {
       res.json({ message: error.message });
     }
   }
 
+  const getAllBlogForUserById = async (req, res) => {
+    const user_id = req.user.id;
+  
+    try {
+      const blogs = await Blog.findAll({
+        where: { user_id },
+        include: [{
+          model: User
+        }]
+      });
+      return res.status(200).json({
+        success: true,
+        blogs,
+      });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
+  
+  
 
   const deleteBlog = async (req, res) => {
     const { id } = req.params;
@@ -71,6 +113,7 @@ const getAllBlog = async (req, res) => {
 module.exports = {
     createBlog,
     getAllBlog,
+    getAllBlogForUserById,
     deleteBlog
   };
   

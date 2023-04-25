@@ -15,6 +15,9 @@ const Blogs = database.define("blogs",{
             key: 'id',
           },
     },
+    image:{
+        type: DataTypes.STRING,
+    },
     description:{
         type: DataTypes.STRING,
     },
