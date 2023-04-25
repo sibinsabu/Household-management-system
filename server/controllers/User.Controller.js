@@ -142,7 +142,7 @@ const signup = async (req, res) => {
           message: "Invalid login credentials",
         });
       } else {
-        const token = createToken(foundUser.id, foundUser.name, foundUser.image);
+        const token = createToken(foundUser.id, foundUser.username, foundUser.image);
   
         return res.status(200).json({
           success: true,
