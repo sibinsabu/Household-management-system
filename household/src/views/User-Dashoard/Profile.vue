@@ -1,8 +1,7 @@
 <template>
 <div>
   <div class="max-w-7xl mx-auto my-20 px-4 md:px-0">
-
-    <div class="flex flex-col md:flex-row  justify-center items-center lg:justify-start lg:items-start">
+    <div class="flex flex-col md:flex-row   lg:justify-start lg:items-start">
       <div class="md:w-20 lg:mt-20 lg:w-60 md:mr-4 md:mb-0 h-full w-40">
         <div class="relative">
            <img class="w-60 h-60 rounded-full mr-5" :src="userProfile.image" alt="Banner Image">
@@ -30,50 +29,46 @@
           </div>
           <p class="mt-1 max-w-2xl text-lg text-gray-500">{{ userProfile.AboutMe }}</p>
         </div>
-
-
-        <div class="flex flex-col md:flex-row items-center mt-5">
-          <!-- <a href="#" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md mb-2 md:mb-0 md:mr-2">Send Message</a> -->
-        </div>
       </div>
     </div>
-
   </div>
 
   <div class="max-w-7xl mx-auto my-20 px-4 md:px-0">
   <h2 class="text-3xl font-bold mb-10">My Blog Posts</h2>
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-    <div class="flex bg-white rounded-lg shadow-lg">
-      <img class="h-48 w-full object-cover m-auto" src="../../assets/images/photo-1633332755192-727a05c4013d.jpg" alt="Blog Post 1">
+    <div class="flex bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300" v-for="blog in blogs" :key="blog.blog_id" style="position: relative;">
+      <img class="h-48 w-48 object-cover" :src="blog.image" alt="Blog Post Image">
       <div class="p-6">
-        <p class="text-gray-600 text-sm mb-2">May 1, 2023</p>
-        <h3 class="text-lg font-bold mb-2">My First Blog Post</h3>
-        <p class="text-gray-700">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, ea fugit</p>
+        <p class="text-gray-600 text-sm mb-2 font-bold">{{ formatDistance(new Date(blog.createdAt), Date.now(), { includeSeconds: false, locale: enGB, approximate: false }) }}</p>
+        <p class="text-gray-700">{{ blog.description}}</p>
       </div>
-     </div>
-
-     <div class="flex bg-white rounded-lg shadow-lg">
-      <img class="h-48 w-full object-cover m-auto" src="../../assets/images/photo-1633332755192-727a05c4013d.jpg" alt="Blog Post 1">
-      <div class="p-6">
-        <p class="text-gray-600 text-sm mb-2">May 1, 2023</p>
-        <h3 class="text-lg font-bold mb-2">My First Blog Post</h3>
-        <p class="text-gray-700">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, ea fugit</p>
+      <div title="delete" style="position: absolute; top: 0; right: 0;">
+        <fa :icon="['fas', 'trash-alt']" @click="confirmDelete(blog.blog_id)" class="mx-2 text-red-400 cursor-pointer" />
       </div>
-     </div>
+    </div>
   </div>
+
+    <div v-if="deleteMessage" class="fixed bottom-0 right-0 bg-gray-600 rounded mb-10">
+    <span class="block text-center text-black p-4">{{ deleteMessage }}</span>
+  </div> 
+
   </div>
 </div>
 </template>
 
 <script>
+import { formatDistance } from 'date-fns';
 import axios from "axios";
 import { SERVER_URL } from "../../constant/index";
+import apiCall from '../../constant/Api'
 
 export default {
   data() {
     return {
       userProfile: {},
+      blogs: [],
+      deleteMessage: "",
     };
   },
   computed: {
@@ -89,7 +84,32 @@ export default {
       .catch((error) => {
     
       });
+
+      apiCall('/Blogs/SingleUser', 'GET')
+      .then((res) => {
+        this.blogs = res.blogs; 
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+      this.formatDistance = formatDistance.bind(this);
   },
+  methods: {
+  deleteBlog(id) {
+    apiCall(`/Blogs/${id}`, 'DELETE')
+      .then(() => {
+        const index = this.blogs.findIndex((blog) => blog.blog_id === id);
+        this.blogs.splice(index, 1);
+        this.deleteMessage = "Blog post deleted successfully.";
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+},
+
 }
 </script>
+
 

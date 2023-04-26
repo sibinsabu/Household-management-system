@@ -20,9 +20,6 @@ const Blogs = database.define("blogs",{
     },
     description:{
         type: DataTypes.STRING,
-    },
-    date:{
-        type: DataTypes.DATE,
     }, 
 },
 {

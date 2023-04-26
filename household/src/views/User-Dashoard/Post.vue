@@ -23,7 +23,7 @@
                 </div>
                 <div class="">
                     <h2 class="text-base font-bold mb-1">{{blog.user.username}}</h2>
-                    <p class="text-gray-600 text-sm mb-2">{{ blog.date }}</p>
+                    <p class="text-gray-600 text-sm mb-2">{{ formatDistance(new Date(blog.createdAt), Date.now(), { includeSeconds: false, locale: enGB, approximate: false }) }}</p>
                 </div>
             </div>
             <div class="px-4 pb-4">
@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import { formatDistance } from 'date-fns';
 import PostForm from '../../components/Create-Post-form.vue'
 import apiCall from '../../constant/Api'
 
@@ -63,6 +64,8 @@ export default {
       .catch((error) => {
         console.log(error);
       });
+
+      this.formatDistance = formatDistance.bind(this);
   },
 
   methods: {

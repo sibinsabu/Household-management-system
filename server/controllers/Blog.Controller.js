@@ -3,13 +3,6 @@ const User = require('../models/User.Model')
 const cloudinary = require("cloudinary").v2;
 
 
-function getCurrentDate() {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = today.getMonth() + 1;
-    const day = today.getDate();
-    return `${year}-${month}-${day}`;
-  }
 
   cloudinary.config({
     cloud_name: "dows56r9v",
@@ -21,7 +14,6 @@ function getCurrentDate() {
 const createBlog = async (req, res) => {
     const { description} = req.body;
     const user_id = req.user.id;
-    const date = getCurrentDate();
 
     if(!description){
       return res.status(400).json({
@@ -35,7 +27,6 @@ const createBlog = async (req, res) => {
       const blog = await Blog.create({
         user_id: user_id,
         description: description,
-        date: date,
         image: result.secure_url,
       });
       return res.status(200).json({
