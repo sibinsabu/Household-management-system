@@ -21,6 +21,9 @@ const Blogs = database.define("blogs",{
     description:{
         type: DataTypes.STRING,
     }, 
+    likes:{
+        type: DataTypes.INTEGER,
+    },
 },
 {
     freezeTableName: true,

@@ -2,6 +2,7 @@ const {
     createBlog,
     getAllBlog,
     getAllBlogForUserById,
+    BlogLike ,
     deleteBlog
 }= require("../controllers/Blog.Controller");
 
@@ -13,6 +14,7 @@ BlogRouter.use(authenticateUser);
 BlogRouter.post("/", uploadImage ,createBlog);
 BlogRouter.get("/", getAllBlog);
 BlogRouter.get("/SingleUser", getAllBlogForUserById);
+BlogRouter.put("/:id", BlogLike );
 BlogRouter.delete("/:id", deleteBlog);
 
 

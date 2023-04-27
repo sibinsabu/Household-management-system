@@ -1,8 +1,8 @@
 <template>
 <div>
   <div class="max-w-7xl mx-auto my-20 px-4 md:px-0">
-    <div class="flex flex-col md:flex-row   lg:justify-start lg:items-start">
-      <div class="md:w-20 lg:mt-20 lg:w-60 md:mr-4 md:mb-0 h-full w-40">
+    <div class="flex flex-col md:flex-row lg:justify-start lg:items-start">
+      <div class=" flex items-center justify-center">
         <div class="relative">
            <img class="w-60 h-60 rounded-full mr-5" :src="userProfile.image" alt="Banner Image">
           <p title="edit"><router-link :to="{ name: 'UpdateProfile', params:{ id:user.id} }" ><fa :icon="['fas', 'edit' ]" class="ml-2 cursor-pointer text-gray-400 hover:text-gray-500" /></router-link></p> 
@@ -40,11 +40,12 @@
     <div class="flex bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300" v-for="blog in blogs" :key="blog.blog_id" style="position: relative;">
       <img class="h-48 w-48 object-cover" :src="blog.image" alt="Blog Post Image">
       <div class="p-6">
-        <p class="text-gray-600 text-sm mb-2 font-bold">{{ formatDistance(new Date(blog.createdAt), Date.now(), { includeSeconds: false, locale: enGB, approximate: false }) }}</p>
+        <p class="text-gray-600 text-sm mb-2 font-bold">{{ formatDistance(new Date(blog.createdAt), Date.now(), { includeSeconds: false, approximate: false }) }}</p>
+        <p class="text-gray-700">{{ blog.likes}} likes</p>
         <p class="text-gray-700">{{ blog.description}}</p>
       </div>
       <div title="delete" style="position: absolute; top: 0; right: 0;">
-        <fa :icon="['fas', 'trash-alt']" @click="confirmDelete(blog.blog_id)" class="mx-2 text-red-400 cursor-pointer" />
+        <fa :icon="['fas', 'trash-alt']" @click="deleteBlog(blog.blog_id)" class="mx-2 text-red-400 cursor-pointer" />
       </div>
     </div>
   </div>

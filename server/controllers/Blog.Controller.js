@@ -75,6 +75,26 @@ const getAllBlog = async (req, res) => {
     }
   }
   
+
+
+  const BlogLike = async (req, res) => {
+    const blog_id = req.params.id;
+    const blog = await Blog.findOne({ where: {blog_id: req.params.id } });
+    if (!blog) {
+      return res.status(404).json({ error: 'Blog not found' });
+    }
+  
+    const BlogLike = await Blog.update({ likes: blog.likes + 1 },{ where: { blog_id: req.params.id}, returning: true }
+    );
+  
+    res.status(200).json({
+      success: true,
+       blog:  BlogLike
+    });
+  };
+  
+  
+
   
 
   const deleteBlog = async (req, res) => {
@@ -105,6 +125,7 @@ module.exports = {
     createBlog,
     getAllBlog,
     getAllBlogForUserById,
+    BlogLike ,
     deleteBlog
   };
   

@@ -23,16 +23,21 @@
                 </div>
                 <div class="">
                     <h2 class="text-base font-bold mb-1">{{blog.user.username}}</h2>
-                    <p class="text-gray-600 text-sm mb-2">{{ formatDistance(new Date(blog.createdAt), Date.now(), { includeSeconds: false, locale: enGB, approximate: false }) }}</p>
+                    <p class="text-gray-600 text-sm mb-2">{{ formatDistance(new Date(blog.createdAt), Date.now(), { includeSeconds: false, approximate: false }) }}</p>
                 </div>
             </div>
             <div class="px-4 pb-4">
                 <p class="text-gray-800 text-sm leading-6">{{ blog.description }}</p>
                 <img :src="blog.image" class="h-96 w-full object-cover mt-4" />
-            </div>  
+            </div> 
+            <div class="flex items-center justify-between px-4 py-2">
+               <button type="submit" @click="postLikes(blog.blog_id)" class="bg-gray-200 rounded-full p-2 mr-2">
+                 <fa :icon="['fas', 'heart' ]" class="text-blue-400"/>
+               </button>
+               <span class="text-gray-800">{{ blog.likes }} likes</span>
+
+            </div> 
         </div>  
-     
-      
     </div>
 
 
@@ -72,11 +77,17 @@ export default {
     openModal() {
       this.showModal = true;
     },
-
     closeModal() {
       this.showModal = false;
     },
-  },
+    
+    postLikes(blogId) {
+      apiCall(`/Blogs/${blogId}`, 'PUT')
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+ },
 };
 </script>
 
