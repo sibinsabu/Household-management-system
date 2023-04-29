@@ -288,7 +288,7 @@ const signup = async (req, res) => {
   const updateUserProfile = async (req, res) => {
     const { username, email, phoneNumber, accountType, jobTitle, AboutMe, location} = req.body;
 
-    if(!username || !email || !phoneNumber || !jobTitle || !accountType || !AboutMe || !location){
+    if(!username || !email || !phoneNumber || !accountType || !AboutMe || !location){
       return res.status(400).json({
         success: false,
         message: "All Fields Are Required",
@@ -305,6 +305,32 @@ const signup = async (req, res) => {
         AboutMe: AboutMe,
         location: location,
       }, { where: { id: req.params.id}})
+
+      res.status(200).json({
+        success: true,
+        user: updatedUser,
+      });
+    } catch (error) {
+      res.json({ message: error.message });
+    }
+  };
+
+
+  const updateUserImage = async (req, res) => {
+    if(!req.file.path ){
+      return res.status(400).json({
+        success: false,
+        message: "All Fields Are Required",
+      });
+    }
+      const result = await cloudinary.uploader.destroy('image.public_id');
+      const updatedImage = await cloudinary.uploader.upload(req.file.path, { folder: "Users" })
+
+    try {
+      const updatedUser = await User.update({
+        image: updatedImage.secure_url,
+      }, { where: { id: req.params.id}})
+
       res.status(200).json({
         success: true,
         user: updatedUser,
@@ -315,12 +341,14 @@ const signup = async (req, res) => {
   };
   
   
+  
   module.exports = {
     login,
     signup,
     getUserById,
     forgotPassword,
     resetPassword,
-    updateUserProfile
+    updateUserProfile,
+    updateUserImage
   };
   

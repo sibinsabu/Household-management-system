@@ -10,35 +10,45 @@
                 <span class=" text-center">{{ HandelSuccess }}</span>
             </div>
 
+            <div class="fixed inset-0 bg-zinc-100 bg-opacity-75 blur" v-if="showModal"></div>
+              <div class="relative px-6 py-40" v-if="showModal">
+                <div class="absolute inset-0  flex items-center justify-center lg:top-20 top-20">
+                    <UpdateImage @close-modal="closeModal"/>
+                </div>
+              </div>
+
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4 mx-3">
-            <label class="block font-medium text-gray-700 mb-2" for="name"> Image </label>
-            <p align="center">
-              <img class="w-20 h-20 rounded-full" :src="userProfile.image" alt="Banner Image">
-            </p>
+              <label class="block font-medium text-gray-700 mb-2" for="name"> Image </label>
+              <div class="flex items-center justify-center">
+                <img class="w-20 h-20 rounded-full" :src="userProfile.image" alt="Banner Image"> 
+                <p title="edit"><fa :icon="['fas', 'edit' ]" @click="openModal" class="ml-2 cursor-pointer text-gray-400 hover:text-gray-500" /></p> 
+              </div>
+      
+             
 
-            <label class="block font-medium text-gray-700 mb-2" for="name"> Name </label>
-            <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text"  v-model="userProfile.username" />
+              <label class="block font-medium text-gray-700 mb-2" for="name"> Name </label>
+              <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text"  v-model="userProfile.username" />
 
-             <label v-if="user.accountType === 'Applicant'" class="block font-medium text-gray-700 mb-2" for="name"> AccountType </label>
-            <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text"  v-model="userProfile.accountType" />
+              <label class="block font-medium text-gray-700 mb-2" for="name"> AccountType </label>
+              <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text"  v-model="userProfile.accountType" />
 
-             <label class="block font-medium text-gray-700 mb-2" for="name"> jobTitle </label>
-            <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text"  v-model="userProfile.jobTitle" />
+              <label v-if="user.accountType === 'Applicant'" class="block font-medium text-gray-700 mb-2" for="name"> jobTitle </label>
+              <input v-if="user.accountType === 'Applicant'" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text"  v-model="userProfile.jobTitle" />
 
-            <label class="block font-medium text-gray-700 mb-2" for="name"> email </label>
-            <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="email"  v-model="userProfile.email" />
+              <label class="block font-medium text-gray-700 mb-2" for="name"> email </label>
+              <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="email"  v-model="userProfile.email" />
 
-             <label class="block font-medium text-gray-700 mb-2" for="name"> Phone Number </label>
-            <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text"  v-model="userProfile.phoneNumber" />
+              <label class="block font-medium text-gray-700 mb-2" for="name"> Phone Number </label>
+              <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text"  v-model="userProfile.phoneNumber" />
 
-             <label class="block font-medium text-gray-700 mb-2" for="name"> Location </label>
-            <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text"  v-model="userProfile.location" />
+              <label class="block font-medium text-gray-700 mb-2" for="name"> Location </label>
+              <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text"  v-model="userProfile.location" />
 
-            <label class="block font-medium text-gray-700 mb-2" for="name"> About Me </label>
-            <textarea class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text"  v-model="userProfile.AboutMe" ></textarea>
+              <label class="block font-medium text-gray-700 mb-2" for="name"> About Me </label>
+              <textarea class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text"  v-model="userProfile.AboutMe" ></textarea>
           </div>
 
-          <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-white bg-blue-600 hover:bg-blue-700">Update Profile  </button>
+          <button type="submit" class="inline-flex items-center ml-3 px-4 py-2 border border-transparent rounded-md font-semibold text-white bg-blue-600 hover:bg-blue-700">Update Profile  </button>
         </form>
       </div>
     </div>
@@ -48,13 +58,18 @@
   <script>
   import axios from "axios";
   import { SERVER_URL } from "../../constant/index";
+  import UpdateImage from '../../components/UpdateImage.Modal.vue'
   
   export default {
+    components: {
+      UpdateImage,
+    },
     data() {
       return {
         userProfile: {},
         HandelError: '',
         HandelSuccess: '',
+        showModal: false,
         formSubmitted: false
       };
     },
@@ -72,13 +87,43 @@
       
         });
     },
-    methods: {
+     methods: {
+        openModal() {
+        this.showModal = true;
+        },
+        closeModal() {
+          this.showModal = false;
+        },
+
+        handleFileChange(event) {
+          this.userProfile.image = event.target.files[0];
+        },
+      
         handleUpdateUser() {
-            axios.patch(`${SERVER_URL}/authentication/updateUserProfile/${this.$route.params.id}`,  this.userProfile)
+          const formData = new FormData();
+          formData.append('accountType', this.userProfile.accountType)
+          formData.append('username', this.userProfile.username)
+          formData.append('jobTitle', this.userProfile.jobTitle)
+          formData.append('email', this.userProfile.email)
+          formData.append('phoneNumber', this.userProfile.phoneNumber)
+          formData.append('AboutMe', this.userProfile.AboutMe)
+          formData.append('location', this.userProfile.location)
+
+            axios.patch(`${SERVER_URL}/authentication/updateUserProfile/${this.$route.params.id}`, formData, {
+              headers: {
+                'Content-Type': 'multipart/form-data'
+              }
+            })
             .then((res) => {
-                if (res?.status ===200 ) {
+              if (res?.status ===200 ) {
                   this.HandelSuccess = "profile updated successfully"
-            }
+              }
+              
+                let user = JSON.parse(localStorage.getItem("user"));
+                user.name = this.userProfile.username;
+                user.email = this.userProfile.email;
+                user.accountType = this.userProfile.accountType;
+                 localStorage.setItem("user", JSON.stringify(user));
             })
             .catch(error => {
             if (error.response?.status === 400) {
