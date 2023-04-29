@@ -34,26 +34,29 @@
   </div>
 
   <div class="max-w-7xl mx-auto my-20 px-4 md:px-0">
-  <h2 class="text-3xl font-bold mb-10">My Blog Posts</h2>
+    <h2 class="text-3xl font-bold mb-10">My Blog Posts</h2>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-    <div class="flex bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300" v-for="blog in blogs" :key="blog.blog_id" style="position: relative;">
-      <img class="h-48 w-48 object-cover" :src="blog.image" alt="Blog Post Image">
-      <div class="p-6">
-        <p class="text-gray-600 text-sm mb-2 font-bold">{{ formatDistance(new Date(blog.createdAt), Date.now(), { includeSeconds: false, approximate: false }) }}</p>
-        <p class="text-gray-700">{{ blog.likes}} likes</p>
-        <p class="text-gray-700">{{ blog.description}}</p>
-      </div>
-      <div title="delete" style="position: absolute; top: 0; right: 0;">
-        <fa :icon="['fas', 'trash-alt']" @click="deleteBlog(blog.blog_id)" class="mx-2 text-red-400 cursor-pointer" />
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <div class=" bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300" v-for="blog in blogs" :key="blog.blog_id" style="position: relative;">
+        
+          <img class=" object-cover" :src="blog.image" alt="Blog Post Image">
+      
+        <div class="p-6">
+          <div class="flex justify-between">
+            <p class="text-gray-600 text-sm mb-2 font-bold">{{ formatDistance(new Date(blog.createdAt), Date.now(), { includeSeconds: false, approximate: false }) }}</p>
+            <p class="text-gray-700">{{ blog.likes}} likes</p>
+          </div>
+          <p class="text-gray-700">{{ blog.description}}</p>
+        </div>
+        <div title="delete" style="position: absolute; top: 0; right: 0;">
+          <fa :icon="['fas', 'trash-alt']" @click="deleteBlog(blog.blog_id)" class="mx-2 text-red-400 cursor-pointer" />
+        </div>
       </div>
     </div>
-  </div>
 
     <div v-if="deleteMessage" class="fixed bottom-0 right-0 bg-gray-600 rounded mb-10">
-    <span class="block text-center text-black p-4">{{ deleteMessage }}</span>
-  </div> 
-
+      <span class="block text-center text-black p-4">{{ deleteMessage }}</span>
+    </div> 
   </div>
 </div>
 </template>

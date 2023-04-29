@@ -31,10 +31,10 @@
               </router-link>
   
   
-              <router-link  @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:hidden': !showMobileMenu,
-              'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0': showMobileMenu }" :to="{ name: 'contact' }">
-                logOut
-              </router-link>
+              <a  @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:hidden': !showMobileMenu,
+              'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0 cursor-pointer': showMobileMenu }">
+                <p @click="logout">logOut</p>
+              </a>
            </div>
   
            <div class="hidden md:block">
@@ -89,10 +89,10 @@
                 Reviews  
               </router-link>
   
-              <router-link @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:hidden': !showMobileMenu,
-              'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0': showMobileMenu }" :to="{ name: 'contact' }">
-                logOut
-              </router-link>
+              <a  @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:hidden': !showMobileMenu,
+              'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0 cursor-pointer': showMobileMenu }">
+                <p @click="logout">logOut</p>
+              </a>
            </div>
   
            <div class="hidden md:block">

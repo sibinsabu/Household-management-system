@@ -46,7 +46,7 @@
 
 <script>
 import { formatDistance } from 'date-fns';
-import PostForm from '../../components/Create-Post-form.vue'
+import PostForm from '../../components/Create-Post-form.Modal.vue'
 import apiCall from '../../constant/Api'
 
 export default {
