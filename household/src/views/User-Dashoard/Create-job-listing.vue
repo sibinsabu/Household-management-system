@@ -41,7 +41,7 @@
 
 
 <script>
-import JobForm from '../../components/Create-job-form.vue'
+import JobForm from '../../components/Create-job-form.Modal.vue'
 
 export default {
     components: {
