@@ -2,8 +2,6 @@ const Blog = require('../models/Blog.Model')
 const User = require('../models/User.Model')
 const cloudinary = require("cloudinary").v2;
 
-
-
   cloudinary.config({
     cloud_name: "dows56r9v",
     api_key: "296524897655252",
@@ -17,7 +15,7 @@ const createBlog = async (req, res) => {
 
     if(!description){
       return res.status(400).json({
-        success: falsce,
+        success: false,
         message: "All Fields Are Required",
       });
     }
