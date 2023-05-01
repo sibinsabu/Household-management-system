@@ -1,5 +1,6 @@
 const {DataTypes} = require('sequelize')
 const database = require('../config/database')
+const Users = require('../models/User.Model')
 
 const JobListing = database.define("jobListing",{
     job_id: {
@@ -7,17 +8,24 @@ const JobListing = database.define("jobListing",{
         primaryKey: true,
         autoIncrement: true,
     },
+    user_id: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: Users,
+            key: 'id',
+          },
+    },
     location:{
         type: DataTypes.STRING,
     },
-    jobType:{
+    jobTile:{
         type: DataTypes.STRING,
     },
     description:{
         type: DataTypes.STRING,
     },
-    schedule:{
-        type: DataTypes.INTEGER,
+    timeSchedule:{
+        type: DataTypes.STRING,
     },
     salary:{
         type: DataTypes.INTEGER,
@@ -34,6 +42,8 @@ const JobListing = database.define("jobListing",{
     timestamps: true,
 }
 );
+
+JobListing.belongsTo(Users, { foreignKey: 'user_id' });
 
 database.sync()
   .then(() => {

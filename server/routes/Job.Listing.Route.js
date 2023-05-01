@@ -7,7 +7,9 @@ const {
 }= require("../controllers/Job.Listing.Controller");
 
 const BlogRouter = require("express").Router();
+const {authenticateUser} = require("../Middleware/AuthenticateUser");
 
+BlogRouter.use(authenticateUser);
 BlogRouter.post("/", createJobListing);
 BlogRouter.get("/", getAllJobListing);
 BlogRouter.get("/:id", getJobListingById);

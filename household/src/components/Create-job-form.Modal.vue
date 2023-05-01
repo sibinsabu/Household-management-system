@@ -1,6 +1,12 @@
 <template>
-      <div class="bg-white py-4 px-4 shadow sm:rounded-lg sm:px-10 my-20">
-          <form @submit.prevent="jobs" class="space-y-6 w-80">
+    <div class="bg-white py-4 px-4 shadow sm:rounded-lg sm:px-10 my-20">
+        <div v-if="HandelError" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-2" role="alert">
+          <span class=" text-center">{{ HandelError }}</span>
+        </div>
+        <div v-if="HandelSuccess" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-2" role="alert">
+          <span class=" text-center">{{ HandelSuccess }}</span>
+        </div>
+        <form @submit.prevent="jobs" class="space-y-6 w-80">
                   <p class="mb-5 text-center text-sm text-gray-600 font-medium">Create a job listing</p>
   
                   <div class="mt-5 ">
@@ -43,24 +49,28 @@
                       Close
                    </button>
 
-                    <button type="submit" class="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600">
+                    <button type="submit" class="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">
                       Submit
                     </button>
                 </div>
-          </form>
-        </div>
+        </form>
+     </div>
   </template>
   
   <script>
+  import apiCall from "../constant/Api"
+
   export default {
     name: 'JobForm',
     data() {
     return {
-        jobTile:'',
-        description:'',
-        location:'',
-        timeSchedule:'',
-        salary:'',
+      jobTile:'',
+      description:'',
+      location:'',
+      timeSchedule:'',
+      salary:'',
+      HandelSuccess: '',
+      HandelError: '',
       showModal: false,
       formSubmitted: false
     };
@@ -68,14 +78,35 @@
   methods: {
     jobs(){
         this.formSubmitted = true;
-        if (!this.jobTile || !this.description || !this.location || !this.timeSchedule || !this.salary) {
+      if (!this.jobTile || !this.description || !this.location || !this.timeSchedule || !this.salary) {
         return;
+      }else{
+    
+      apiCall('/JobListings', 'post', {
+        jobTile: this.jobTile,
+        description: this.description,
+        location: this.location,
+        timeSchedule: this.timeSchedule,
+        salary: this.salary,
+      })
+      .then((res) => {
+        console.log(res);
+        if(res?.status ===200 ) {
+           this.HandelSuccess = "Job Listing Uploaded"
+          }else{
+            this.$emit('close-modal');
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      if (error.response?.status === 400) {
+        this.HandelError = "All Fields Are Required"
       }
-       console.log(this.userName , this.description,this.location, this.timeSchedule ,this.salary);
-       this.$emit('close-modal');
+    });
+    }
    },
-},
-  }
+  },
+}
   </script>
   
   <style>

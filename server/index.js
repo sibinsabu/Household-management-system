@@ -25,11 +25,8 @@ app.use(morgan("dev"));
 app.use('/authentication', UserRoutes)
 app.use('/Blogs', BlogRoutes)
 app.use('/Reviews', ReviewRoutes)
-
-
 // Homeowner API
 app.use('/JobListings', JobListingRoutes)
-
 // Applicant API
 app.use('/Jobs', ApplicantRoutes)
 

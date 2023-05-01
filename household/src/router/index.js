@@ -125,7 +125,7 @@ const routes = [
     beforeEnter: requireAuth
   },
   {
-    path: '/JobListingById',
+    path: '/JobListingById/:id',
     name: 'JobListing',
     component: jobListingId,
     meta: {
@@ -179,7 +179,7 @@ const routes = [
     beforeEnter: requireAuth
   },
   {
-    path: '/public-profile',
+    path: '/public-profile/:id',
     name: 'PublicProfile',
     component:  PublicProfile,
     meta: {

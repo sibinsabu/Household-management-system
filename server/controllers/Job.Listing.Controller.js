@@ -12,16 +12,24 @@ function getCurrentDate() {
 }
 
 const createJobListing = async (req, res) => {
-    const { user_id, description, location, jobType, schedule, salary} = req.body;
+    const { description, location, jobTile, timeSchedule, salary} = req.body;
+    const user_id = req.user.id;
     const date = getCurrentDate();
+
+    if(!description || !location || !jobTile || !timeSchedule || !salary){
+      return res.status(400).json({
+        success: false,
+        message: "All Fields Are Required",
+      });
+    }
 
     try {
         await JobListing.create({
            user_id: user_id,
            description: description,
            location: location,
-           jobType: jobType,
-           schedule: schedule,
+           jobTile: jobTile,
+           timeSchedule: timeSchedule,
            salary: salary,
            status: "Posted",
            date: date
@@ -35,8 +43,13 @@ const createJobListing = async (req, res) => {
 
 const getAllJobListing = async (req, res) => {
     try {
-      const JobListings = await JobListing.findAll({ });
-        return res.status(200).json({ success: true, JobListings});
+      const jobListing = await JobListing.findAll({ 
+        include: [{
+          model: User,
+          attributes: ['username', 'email', 'phoneNumber', 'accountType', 'jobTitle', 'AboutMe', 'location', 'image']
+        }]
+      });
+        return res.status(200).json({ success: true, jobListing});
     } catch (error) {
         return res.status(500).json({ success: false, message: error.message});
     }
@@ -49,11 +62,15 @@ const getJobListingById = async (req, res) => {
     return res.status(400).json({ success: false, message: "Id is missing"});
   }
   try {
-     const JobListings = await JobListing.findAll({ where: {job_id: id }});
-     if (!JobListings) {
+     const jobListings = await JobListing.findAll({ where: {job_id: id },
+      include: [{
+        model: User,
+        attributes: ['username', 'email', 'phoneNumber', 'accountType', 'jobTitle', 'AboutMe', 'location', 'image']
+      }]});
+     if (!jobListings) {
         return res.status(404).json({success: false,message: "JobListings not found"});
     }
-     return res.status(200).json({ success: true, JobListings});
+     return res.status(200).json({ success: true, jobListings });
     } catch (error) {
         return res.status(500).json({ success: false, message:  error.message});
     } 

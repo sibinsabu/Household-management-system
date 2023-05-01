@@ -1,21 +1,21 @@
 <template>
   <div class="max-w-7xl mx-auto my-20 px-4 md:px-0">
-    <div class="flex flex-col md:flex-row justify-center items-center">
-      <div class="md:w-20 lg:w-60 md:mr-4  md:mb-0">
-        <img class="h-full w-40 lg:w-60 object-cover rounded-full" src="../../assets/images/photo-1633332755192-727a05c4013d.jpg" alt="Banner Image">
+    <div class="flex flex-col md:flex-row lg:justify-start lg:items-start 2xl:items-center 2xl:justify-center">
+      <div class="flex items-center justify-center">
+        <img class="w-60 h-60 rounded-full mr-5" :src="userProfile.image" alt="Banner Image">
       </div>
 
       <div class="md:ml-10 mt-10">
         <div class="mb-2">
-          <h1 class="uppercase text-lg leading-6  text-gray-900 mb-2">Account Name: <span class="font-bold text-purple-800 uppercase text-2xl font-bol">Jeremy Rose</span></h1>
-          <p class="text-lg leading-6  text-gray-900 mb-2">Location: <span class="uppercase text-lg font-bold mb-1">New York, NY</span></p>            
-          <p class="text-lg leading-6  text-gray-900 mb-2">Job Title: <span class="uppercase text-lg font-bold mb-1">Nanny</span></p>
-          <p class="text-lg leading-6  text-gray-900 mb-2">Account Type: <span class="uppercase text-lg font-bold mb-1">Applicant</span></p>
+          <h1 class="uppercase text-lg leading-6  text-gray-900 mb-2">Account Name: <span class="font-bold text-purple-800 uppercase text-2xl font-bol">{{ userProfile.username }}</span></h1>
+          <p class="text-lg leading-6  text-gray-900 mb-2">Location: <span class="uppercase text-lg font-bold mb-1">{{ userProfile.location }}</span></p>            
+          <p v-if="user.accountType === 'Applicant'" class="text-lg leading-6  text-gray-900 mb-2">Job Title: <span class="uppercase text-lg font-bold mb-1">{{ userProfile.jobTitle }}</span></p>
+          <p class="text-lg leading-6  text-gray-900 mb-2">Account Type: <span class="uppercase text-lg font-bold mb-1">{{ userProfile.accountType }}</span></p>
         </div>
 
         <div class="mb-5 mt-10">
           <h3 class="text-lg leading-6 font-bold text-gray-900">About Me</h3>
-          <p class="mt-1 max-w-2xl text-lg text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste voluptate aspernatur blanditiis illum reprehenderit placeat. Neque ut quo pariatur sunt velit? Sapiente vero quaerat ipsam accusamus? Qui voluptatem corporis aut.</p>
+          <p class="mt-1 max-w-2xl text-lg text-gray-500">{{ userProfile.AboutMe }}</p>
         </div>
 
         <div class="mb-2">
@@ -29,19 +29,36 @@
               <fa :icon="['fas', 'star' ]" class="text-yellow-400" />
            </div>
         </div>
-
-        <div class="flex flex-col md:flex-row items-center">
-          <a href="#" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md mb-2 md:mb-0 md:mr-2">Send Message</a>
-        </div>
       </div>
+      
     </div>
-  </div>
-
-
-  
+  </div>  
 </template>
 
 <script>
+  import axios from "axios";
+  import { SERVER_URL } from "../../constant/index";
+
 export default {
+  data() {
+      return {
+        userProfile: {},
+      };
+    },
+  computed: {
+      user() {
+        return this.$store.state.user;
+      },
+    },
+  created() {
+      axios.get(`${SERVER_URL}/authentication/${this.$route.params.id}`)
+        .then((res) => {
+          console.log(res);
+          this.userProfile = res.data.user;
+        })
+        .catch((error) => {
+      
+        });
+    },
 }
 </script>

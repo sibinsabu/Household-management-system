@@ -30,20 +30,20 @@
   
       <div v-if="user && user.accountType === 'Applicant'" class="w-full max-w-7xl mx-auto">
         <div class="grid gap-5 lg:grid-cols-2 px-5">
-          <div v-for="job in jobs" :key="job.id" class="bg-white rounded-lg shadow-lg mb-8 p-6 hover:shadow-xl transition-shadow duration-300">
-            <h2 class="text-2xl font-bold mb-2 text-purple-800"><a href="/JobListingById">{{ job.title }}</a></h2>
-            <div class="text-gray-600 text-base mb-4 font-bold">{{ job.location }}</div>
-            <p class="text-gray-800 mb-4">{{ job.description }}</p>
+          <div  v-for="jobListing in jobListings" :key="jobListing.job_id" class="bg-white rounded-lg shadow-lg mb-8 p-6 hover:shadow-xl transition-shadow duration-300">
+            <h2 class="text-2xl font-bold mb-2 text-purple-800 uppercase"><router-link :to="{ name: 'JobListing', params:{ id:jobListing.job_id} }">{{ jobListing.jobTile }}</router-link></h2>
+            <div class="text-gray-600 text-base mb-4 font-bold capitalize">{{ jobListing.location }}</div>
+            <p class="text-gray-800 mb-4">{{ jobListing.description }}</p>
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-5">
-              <div class="text-gray-600 text-base font-bold">Applicants: {{ job.applicant }}</div>
-              <div class="text-gray-600 text-base font-bold">{{ formatDate(job.date) }}</div>
-              <div class="text-gray-600 text-base font-bold">Status: <span class="bg-green-200 rounded-full py-1 px-2">{{ job.status }}</span></div> 
-              <div class="text-2xl font-bold text-purple-800">Ksh{{ job.salary }}</div>
+              <div class="text-gray-600 text-base font-bold">Applicants: 55</div>
+              <div class="text-gray-600 text-base font-bold">{{ formatDate(jobListing.date) }}</div>
+              <div class="text-gray-600 text-base font-bold">Status: <span class="bg-green-200 rounded-full py-1 px-2">{{ jobListing.status }}</span></div> 
+              <div class="text-2xl font-bold text-purple-800">Ksh {{ formatSalary(jobListing.salary) }}</div>
             </div>
 
             <div class="flex items-center py-5 justify-between">
-             <div class="text-base bg-green-600 text-white px-2 py-1 rounded-md mt-3">{{ job.type }}</div>
-             <a href="/JobListingById">  <button class="mt-4 bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 transition-colors duration-300">Apply Now</button></a>
+             <div class="text-base bg-green-600 text-white px-2 py-1 rounded-md mt-3 capitalize">{{ jobListing.timeSchedule}}</div>
+             <router-link :to="{ name: 'JobListing', params:{ id:jobListing.job_id} }">  <button class="mt-4 bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 transition-colors duration-300">Apply Now</button></router-link>
             </div>
           </div>
         </div>
@@ -51,20 +51,20 @@
 
       <div v-else-if="user && user.accountType === 'Homeowner'" class="w-full max-w-7xl mx-auto">
         <div class="grid gap-5 lg:grid-cols-2 px-5">
-          <div v-for="job in jobs" :key="job.id" class="bg-white rounded-lg shadow-lg mb-8 p-6 hover:shadow-xl transition-shadow duration-300">
-            <h2 class="text-2xl font-bold mb-2 text-purple-800"><a href="/JobListingById">{{ job.title }}</a></h2>
-            <div class="text-gray-600 text-base mb-4 font-bold">{{ job.location }}</div>
-            <p class="text-gray-800 mb-4">{{ job.description }}</p>
+          <div v-for="jobListing in jobListings" :key="jobListing.job_id" class="bg-white rounded-lg shadow-lg mb-8 p-6 hover:shadow-xl transition-shadow duration-300">
+            <h2 class="text-2xl font-bold mb-2 text-purple-800 uppercase"><router-link :to="{ name: 'JobListing', params:{ id:jobListing.job_id} }">{{ jobListing.jobTile }}</router-link></h2>
+            <div class="text-gray-600 text-base mb-4 font-bold capitalize">{{ jobListing.location }}</div>
+            <p class="text-gray-800 mb-4">{{ jobListing.description }}</p>
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-5">
-              <div class="text-gray-600 text-base font-bold">Applicants: {{ job.applicant }}</div>
-              <div class="text-gray-600 text-base font-bold">{{ formatDate(job.date) }}</div>
-              <div class="text-gray-600 text-base font-bold">Status: <span class="bg-green-200 rounded-full py-1 px-2 ">{{ job.status }}</span></div> 
-              <div class="text-2xl font-bold text-purple-800">Ksh{{ job.salary }}</div>
+              <div class="text-gray-600 text-base font-bold">Applicants: 66</div>
+              <div class="text-gray-600 text-base font-bold">{{ formatDate(jobListing.date) }}</div>
+              <div class="text-gray-600 text-base font-bold">Status: <span class="bg-green-200 rounded-full py-1 px-2 ">{{ jobListing.status }}</span></div> 
+              <div class="text-2xl font-bold text-purple-800">Ksh {{ formatSalary(jobListing.salary) }}</div>
             </div>
 
             <div class="flex items-center py-5 justify-between">
-             <div class="text-base bg-green-600 text-white px-2 py-1 rounded-md mt-3">{{ job.type }}</div>
-             <a href="/JobListingById">  <button class="mt-4 bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 transition-colors duration-300">More</button></a>
+             <div class="text-base bg-green-600 text-white px-2 py-1 rounded-md mt-3 capitalize">{{ jobListing.timeSchedule}}</div>
+             <router-link :to="{ name: 'JobListing', params:{ id:jobListing.job_id} }">  <button class="mt-4 bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 transition-colors duration-300">More</button></router-link>
             </div>
           </div>
         </div>
@@ -75,32 +75,29 @@
   
   
   <script>
+  import apiCall from '../../constant/Api'
+
   export default {
     data() {
       return {
-        jobs: [
-          {
-            id: 1,
-            title: "Front-End Developer",
-            location: "New York, NY",
-            description:
-              "We are seeking a talented Front-End Developer to join our team. The ideal candidate will have experience with React and be able to work in a fast-paced environment.",
-            type: "Full-Time",
-            salary: "80,000",
-            date: "2023-03-21",
-            applicant: "210",
-            status: "on Hold"
-          },
-        ],
-       
+        jobListings: {},
       };
     },
+    created() {
+      apiCall('/JobListings', 'GET')
+      .then((res) => {
+        this.jobListings = res.jobListing;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
   computed: {
     user() {
       return this.$store.state.user;
     },
   },
-    methods: {
+  methods: {
       formatDate(dateString) {
         const date = new Date(dateString);
         return date.toLocaleDateString(undefined, {
@@ -109,8 +106,16 @@
           day: "numeric",
         });
       },
-     
-    },
+ 
+    formatSalary(salary) {
+    const salaryNum = Number(salary);
+    if (salaryNum >= 10000) {
+      return salaryNum.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0});
+    } else {
+      return salaryNum.toFixed(2);
+    }
+  }
+ },
   };
   </script>
   
