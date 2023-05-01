@@ -36,6 +36,9 @@ const JobListing = database.define("jobListing",{
     status:{
         type: DataTypes.STRING,
     },
+    ApplicantNumber:{
+        type: DataTypes.STRING,
+    },
 },
 {
     freezeTableName: true,

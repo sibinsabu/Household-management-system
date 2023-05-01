@@ -8,7 +8,7 @@ const UserRoutes = require('./routes/User.Route')
 const BlogRoutes = require('./routes/Blog.Route')
 const ReviewRoutes = require('./routes/Reviews.Route')
 const JobListingRoutes = require('./routes/Job.Listing.Route')
-const ApplicantRoutes = require('./routes/Applicant.Job.Route')
+const ApplicantRoutes = require('./routes/Job.Applications.Route')
 
 try{
     database.authenticate();
@@ -25,10 +25,8 @@ app.use(morgan("dev"));
 app.use('/authentication', UserRoutes)
 app.use('/Blogs', BlogRoutes)
 app.use('/Reviews', ReviewRoutes)
-// Homeowner API
 app.use('/JobListings', JobListingRoutes)
-// Applicant API
-app.use('/Jobs', ApplicantRoutes)
+app.use('/JobsApplication', ApplicantRoutes)
 
 
 app.listen(5000, () => console.log("this server is running at port 5000"));

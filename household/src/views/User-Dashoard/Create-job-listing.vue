@@ -25,7 +25,7 @@
             <p class="text-gray-800 mb-4">{{ jobListing.description }}</p>
 
             <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-3">
-              <div class="text-gray-600 text-base font-bold">Applicants: jh</div>
+              <div class="text-gray-600 text-base font-bold">Applicants: {{jobListing.ApplicantNumber }}</div>
               <div class="text-gray-600 text-base font-bold">{{ formatDate(jobListing.date) }}</div>
               <div class="text-gray-600 text-base font-bold">Status: <span class="text-gray-600 bg-green-200 rounded-full px-2 inline-block">{{ jobListing.status }}</span></div> 
               <div class="text-2xl font-bold text-purple-800">Ksh {{ formatSalary(jobListing.salary) }}</div>

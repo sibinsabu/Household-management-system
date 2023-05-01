@@ -33,7 +33,7 @@
                   </div>
                   <div>
                     <h4 class="text-gray-700 font-bold mb-1">Applicants</h4>
-                    <p class="text-gray-600"> applicants </p>
+                    <p class="text-gray-600"> {{ApplicantNumber}} </p>
                   </div>
                   <div>
                     <h4 class="text-gray-700 font-bold mb-1">Status</h4>
@@ -71,7 +71,7 @@
                 </div>
                 <div>
                   <h4 class="text-gray-700 font-bold mb-1">Applicants</h4>
-                  <p class="text-gray-600"> applicants </p>
+                  <p class="text-gray-600"> {{ApplicantNumber}} </p>
                 </div>
                 <div>
                   <h4 class="text-gray-700 font-bold mb-1">Salary</h4>
@@ -104,6 +104,7 @@ export default {
       timeSchedule: "",
       location: "",
       jobTile: "",
+      ApplicantNumber: "",
       userId: "",
       username: "",
       email: "",
@@ -125,6 +126,7 @@ export default {
         this.timeSchedule = res.jobListings[0].timeSchedule;
         this.location = res.jobListings[0].location;
         this.jobTile = res.jobListings[0].jobTile;
+        this.ApplicantNumber = res.jobListings[0].ApplicantNumber;
         this.userId = res.jobListings[0].user_id;
         this.username = res.jobListings[0].user.username;
         this. email = res.jobListings[0].user.email;
