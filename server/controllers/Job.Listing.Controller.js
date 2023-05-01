@@ -55,6 +55,24 @@ const getAllJobListing = async (req, res) => {
     }
 }
  
+const getAllJobForUserById = async (req, res) => {
+  const user_id = req.user.id;
+
+  try {
+    const jobListing = await JobListing.findAll({
+      where: { user_id },
+      include: [{
+        model: User
+      }]
+    });
+    return res.status(200).json({
+      success: true,
+      jobListing,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
 
 const getJobListingById = async (req, res) => {
     const { id } = req.params;
@@ -131,6 +149,7 @@ const deleteJobListings = async (req, res) => {
 module.exports = {
     createJobListing,
     getAllJobListing,
+    getAllJobForUserById,
     getJobListingById,
     deleteJobListings,
     updateJobListing

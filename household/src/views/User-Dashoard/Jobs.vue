@@ -42,8 +42,10 @@
             </div>
 
             <div class="flex items-center py-5 justify-between">
-             <div class="text-base bg-green-600 text-white px-2 py-1 rounded-md mt-3 capitalize">{{ jobListing.timeSchedule}}</div>
-             <router-link :to="{ name: 'JobListing', params:{ id:jobListing.job_id} }">  <button class="mt-4 bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 transition-colors duration-300">Apply Now</button></router-link>
+              <div class="text-base bg-green-600 text-white px-2 py-1 rounded-md mt-3 capitalize">{{ jobListing.timeSchedule}}</div>
+              <p v-if="jobListing.status === 'Closed'" class="mt-4 text-sm text-red-400 px-4 py-2 font-medium">Application Closed</p>
+              <button v-else class="mt-4 bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 transition-colors duration-300">Apply Now</button>
+              
             </div>
           </div>
         </div>
@@ -98,23 +100,23 @@
     },
   },
   methods: {
-      formatDate(dateString) {
+    formatDate(dateString) {
         const date = new Date(dateString);
         return date.toLocaleDateString(undefined, {
           year: "numeric",
           month: "long",
           day: "numeric",
         });
-      },
+    },
  
     formatSalary(salary) {
-    const salaryNum = Number(salary);
-    if (salaryNum >= 10000) {
-      return salaryNum.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0});
-    } else {
-      return salaryNum.toFixed(2);
+      const salaryNum = Number(salary);
+      if (salaryNum >= 10000) {
+        return salaryNum.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0});
+      } else {
+        return salaryNum.toFixed(2);
+      }
     }
-  }
  },
   };
   </script>

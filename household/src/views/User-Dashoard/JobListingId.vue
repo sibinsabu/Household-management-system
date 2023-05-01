@@ -82,7 +82,6 @@
                     <h4 class="text-gray-700 font-bold mb-1">Status</h4>
                     <p class="text-gray-600 bg-green-200 rounded-full px-2 inline-block">{{status }}</p>
                   </div>
-                  <div><button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded md:mt-0 mt-4 transition-colors duration-300 lg:mt-5">Update Status</button></div>
                 </div>
               </div>
             </div>
@@ -98,6 +97,7 @@ export default {
     data() {
       return {
       jobListings:{},
+      job_id: "",
       description: "",
       status: "",
       salary: "",
@@ -118,6 +118,7 @@ export default {
     created() {
       apiCall(`/JobListings/${this.$route.params.id}`, 'GET')
       .then((res) => {
+        this.job_id = res.jobListings[0].job_id;
         this.description = res.jobListings[0].description;
         this.status = res.jobListings[0].status;
         this.salary = res.jobListings[0].salary;
@@ -132,14 +133,14 @@ export default {
     },
     methods: {
     formatSalary(salary) {
-    const salaryNum = Number(salary);
-    if (salaryNum >= 10000) {
-      return salaryNum.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0});
-    } else {
-      return salaryNum.toFixed(2);
+        const salaryNum = Number(salary);
+        if (salaryNum >= 10000) {
+          return salaryNum.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0});
+        } else {
+          return salaryNum.toFixed(2);
+        }
     }
-    }
-  }
+  },
 }
 </script>
 

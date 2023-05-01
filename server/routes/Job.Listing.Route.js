@@ -1,6 +1,7 @@
 const {
     createJobListing,
     getAllJobListing,
+    getAllJobForUserById,
     getJobListingById,
     deleteJobListings,
     updateJobListing
@@ -12,6 +13,7 @@ const {authenticateUser} = require("../Middleware/AuthenticateUser");
 BlogRouter.use(authenticateUser);
 BlogRouter.post("/", createJobListing);
 BlogRouter.get("/", getAllJobListing);
+BlogRouter.get("/singleJob", getAllJobForUserById);
 BlogRouter.get("/:id", getJobListingById);
 BlogRouter.patch("/:id",updateJobListing);
 BlogRouter.delete("/:id", deleteJobListings);

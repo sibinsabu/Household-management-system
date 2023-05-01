@@ -11,7 +11,13 @@
   
                   <div class="mt-5 ">
                       <label for="jobTile" class="block text-sm font-medium text-gray-700">Job Title</label>                  
-                      <input type="text" v-model="jobTile" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-500 focus:outline-none">
+                      <select  v-model="jobTile" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-500 focus:outline-none">
+                        <option value="">Select a jobTile</option>
+                        <option value="Maid">Maid</option>
+                        <option value="Baby siting">Baby siting</option>
+                        <option value="Elder Care">Elder Care</option>
+                        <option value="Meal Preparation">Meal Preparation</option>
+                    </select>
                       <p v-if="formSubmitted && !jobTile " :class="{ 'text-red-500 text-xs italic': formSubmitted && !jobTile }" >Include job Tile.</p>                 
                   </div>
   
@@ -90,7 +96,6 @@
         salary: this.salary,
       })
       .then((res) => {
-        console.log(res);
         if(res?.status ===200 ) {
            this.HandelSuccess = "Job Listing Uploaded"
           }else{
