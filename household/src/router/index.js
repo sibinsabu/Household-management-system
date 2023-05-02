@@ -21,6 +21,7 @@ import Reviews from '../views/User-Dashoard/Reviews.vue'
 import PublicProfile from '../views/User-Dashoard/Public-profile.vue'
 import CreateJob from '../views/User-Dashoard/Create-job-listing.vue'
 import AccountType from '../views/AccountType.vue'
+import ApplicantJobListing from '../views/User-Dashoard/ApplicantJobListing.vue'
 
 
 // he requireAuth function checks if the user is authenticated by checking for a valid user object with a token property in local storage. 
@@ -146,6 +147,15 @@ const routes = [
     path: '/Create-job-listing',
     name: 'Create-job-listing',
     component: CreateJob,
+    meta: {
+      requiresAuth: true
+    },
+    beforeEnter: requireAuth
+  },
+  {
+    path: '/ApplicantJobListing/:id',
+    name: 'ApplicantJobListing',
+    component: ApplicantJobListing,
     meta: {
       requiresAuth: true
     },
