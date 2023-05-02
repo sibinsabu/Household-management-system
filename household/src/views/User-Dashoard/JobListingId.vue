@@ -14,7 +14,7 @@
           <div class="border bg-white rounded-b-lg p-4">
             <h2 class="text-2xl font-bold mb-2 text-purple-800 uppercase text-center">job info</h2>
             <span class="text-2xl font-bold mb-2 uppercase">Job title: </span>
-            <span class="text-2xl font-bold mb-2 text-purple-800 uppercase">{{jobTile }}</span>
+            <span class="text-2xl font-bold mb-2 text-purple-800 uppercase">{{jobTitle }}</span>
             <div class="mb-6 py-5">
               <h3 class="text-lg font-bold text-gray-900 mb-2">Job Description</h3>
               <p class="text-gray-700 leading-relaxed">{{description }}</p>
@@ -51,7 +51,7 @@
 
        <div v-else-if="user && user.accountType === 'Homeowner'" class="bg-white border rounded-lg px-4 mx-2 py-5 sm:p-6 mt-10">
             <span class="text-2xl font-bold mb-2 uppercase">Job title: </span>
-            <span class="text-2xl font-bold mb-2 text-purple-800 uppercase">{{jobTile }}</span>
+            <span class="text-2xl font-bold mb-2 text-purple-800 uppercase">{{jobTitle }}</span>
 
             <div class="mb-6 py-5">
               <h3 class="text-lg font-bold text-gray-900 mb-2">Job Description</h3>
@@ -103,7 +103,7 @@ export default {
       salary: "",
       timeSchedule: "",
       location: "",
-      jobTile: "",
+      jobTitle: "",
       ApplicantNumber: "",
       userId: "",
       username: "",
@@ -125,7 +125,7 @@ export default {
         this.salary = res.jobListings[0].salary;
         this.timeSchedule = res.jobListings[0].timeSchedule;
         this.location = res.jobListings[0].location;
-        this.jobTile = res.jobListings[0].jobTile;
+        this.jobTitle = res.jobListings[0].jobTitle;
         this.ApplicantNumber = res.jobListings[0].ApplicantNumber;
         this.userId = res.jobListings[0].user_id;
         this.username = res.jobListings[0].user.username;

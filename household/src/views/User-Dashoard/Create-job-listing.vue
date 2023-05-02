@@ -20,7 +20,7 @@
 
         <div class="grid gap-5 lg:grid-cols-3">
           <div v-for="jobListing in jobListings" :key="jobListing.job_id" class="bg-white rounded-lg shadow-lg p-5 hover:shadow-xl transition-shadow duration-300">
-            <h2 class="text-2xl font-bold text-purple-800 capitalize">{{ jobListing.jobTile }}</h2>
+            <h2 class="text-2xl font-bold text-purple-800 capitalize">{{ jobListing.jobTitle }}</h2>
             <div class="text-gray-600 text-base mb-4 font-bold capitalize">{{ jobListing.location }}</div>
             <p class="text-gray-800 mb-4">{{ jobListing.description }}</p>
 

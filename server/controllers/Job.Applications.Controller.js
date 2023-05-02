@@ -70,7 +70,7 @@ const getJobApplicantsByJobId = async (req, res) => {
     const jobData = {
       job_id: jobListing.job_id,
       description: jobListing.description,
-      jobTile: jobListing.jobTile,
+      jobTitle: jobListing.jobTitle,
       salary: jobListing.salary,
       timeSchedule: jobListing.timeSchedule,
       ApplicantNumber: jobListing.ApplicantNumber,

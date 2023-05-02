@@ -18,7 +18,7 @@ const JobListing = database.define("jobListing",{
     location:{
         type: DataTypes.STRING,
     },
-    jobTile:{
+    jobTitle:{
         type: DataTypes.STRING,
     },
     description:{

@@ -7,7 +7,7 @@
           <div class="grid grid-cols-2 gap-4">
               <div>
                <h4 class="text-gray-700 font-bold mb-1">Job title</h4>
-                <p class="text-gray-600">{{JobsListing.jobTile }}</p>
+                <p class="text-gray-600">{{JobsListing.jobTitle }}</p>
               </div>
               <div>
                 <h4 class="text-gray-700 font-bold mb-1">Schedules</h4>
@@ -35,6 +35,10 @@
                 
               <div class="mb-2">
                 <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <h4 class="text-gray-700 font-bold mb-1">Date Applied</h4>
+                     <p class=" text-lg text-gray-600 text-green-600">{{formatDate(ApplicantJob.date) }}</p>
+                  </div>
                   <div>
                     <h4 class="text-gray-700 font-bold mb-1">JobTitle</h4>
                      <p class="text-gray-600">{{ ApplicantJob.user.jobTitle }}</p>
@@ -91,7 +95,16 @@ export default {
         } else {
           return salaryNum.toFixed(2);
         }
-    }
+    },
+ 
+   formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString(undefined, {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+    },
   },
 }
 </script>

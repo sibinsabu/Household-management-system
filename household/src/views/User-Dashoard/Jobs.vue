@@ -39,7 +39,7 @@
       <div v-if="user && user.accountType === 'Applicant'" class="w-full max-w-7xl mx-auto">
         <div class="grid gap-5 lg:grid-cols-2 px-5">
           <div  v-for="jobListing in jobListings" :key="jobListing.job_id" class="bg-white rounded-lg shadow-lg mb-8 p-6 hover:shadow-xl transition-shadow duration-300">
-            <h2 class="text-2xl font-bold mb-2 text-purple-800 uppercase"><router-link :to="{ name: 'JobListing', params:{ id:jobListing.job_id} }">{{ jobListing.jobTile }}</router-link></h2>
+            <h2 class="text-2xl font-bold mb-2 text-purple-800 uppercase"><router-link :to="{ name: 'JobListing', params:{ id:jobListing.job_id} }">{{ jobListing.jobTitle }}</router-link></h2>
             <div class="text-gray-600 text-base mb-4 font-bold capitalize">{{ jobListing.location }}</div>
             <p class="text-gray-800 mb-4">{{ jobListing.description }}</p>
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-5">
@@ -62,7 +62,7 @@
       <div v-else-if="user && user.accountType === 'Homeowner'" class="w-full max-w-7xl mx-auto">
         <div class="grid gap-5 lg:grid-cols-2 px-5">
           <div v-for="jobListing in jobListings" :key="jobListing.job_id" class="bg-white rounded-lg shadow-lg mb-8 p-6 hover:shadow-xl transition-shadow duration-300">
-            <h2 class="text-2xl font-bold mb-2 text-purple-800 uppercase"><router-link :to="{ name: 'JobListing', params:{ id:jobListing.job_id} }">{{ jobListing.jobTile }}</router-link></h2>
+            <h2 class="text-2xl font-bold mb-2 text-purple-800 uppercase"><router-link :to="{ name: 'JobListing', params:{ id:jobListing.job_id} }">{{ jobListing.jobTitle }}</router-link></h2>
             <div class="text-gray-600 text-base mb-4 font-bold capitalize">{{ jobListing.location }}</div>
             <p class="text-gray-800 mb-4">{{ jobListing.description }}</p>
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-5">
