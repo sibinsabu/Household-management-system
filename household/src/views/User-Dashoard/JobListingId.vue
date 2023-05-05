@@ -1,5 +1,9 @@
 <template>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 my-20 mt-40">
+      <div v-if="saveJobMessage" class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative mb-2" role="alert">
+           <span class="block sm:inline text-center">{{ saveJobMessage }}</span>
+      </div>
+
       <div v-if="user && user.accountType === 'Applicant'" class="px-2">
           <div class="border rounded-t-lg p-4 h-40 lg:mt-40">
             <h2 class="text-2xl font-bold mb-2 text-purple-800 uppercase text-center">homeowner</h2>
@@ -43,6 +47,10 @@
                     <h4 class="text-gray-700 font-bold mb-1">Salary</h4>
                     <p class="text-gray-600">Ksh {{ formatSalary(this.salary) }}</p>
                   </div>
+                  <div>
+                    <button v-if="isJobSaved" @click="removeJob(job_id)" class="mt-4 bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 transition-colors duration-300">Remove</button>
+                    <button v-else @click="saveJob(job_id)" class="mt-4 bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 transition-colors duration-300">Save Job</button>
+                 </div>
               </div>
             </div>
           </div>
@@ -97,6 +105,7 @@ export default {
     data() {
       return {
       jobListings:{},
+      HandelSuccess: '',
       job_id: "",
       description: "",
       status: "",
@@ -115,6 +124,12 @@ export default {
       user() {
         return this.$store.state.user;
       },
+      saveJobMessage() {
+      return this.$store.state.saveJob
+     },
+     isJobSaved() {
+      return this.$store.state.savedJobs && this.$store.state.savedJobs.find(j => j.id === this.job_id);
+    }, 
     },
     created() {
       apiCall(`/JobListings/${this.$route.params.id}`, 'GET')
@@ -129,24 +144,43 @@ export default {
         this.ApplicantNumber = res.jobListings[0].ApplicantNumber;
         this.userId = res.jobListings[0].user_id;
         this.username = res.jobListings[0].user.username;
-        this. email = res.jobListings[0].user.email;
+        this.email = res.jobListings[0].user.email;
         this.image = res.jobListings[0].user.image;
       })
     },
     methods: {
-    formatSalary(salary) {
-        const salaryNum = Number(salary);
-        if (salaryNum >= 10000) {
-          return salaryNum.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0});
-        } else {
-          return salaryNum.toFixed(2);
-        }
-    }
+      saveJob() {
+        const job = {
+          id: this.job_id,
+          description: this.description,
+          status: this.status,
+          salary: this.salary,
+          timeSchedule: this.timeSchedule,
+          location: this.location,
+          jobTitle: this.jobTitle,
+          ApplicantNumber: this.ApplicantNumber,
+        };
+        this.$store.dispatch('SAVE_JOB', job);
+      },
+      removeJob(jobId) {
+  
+  
+      // Update the savedJobs state in the Vuex store
+      this.$store.commit('REMOVE_JOB', jobId);
+ 
+   
+},
+
+      formatSalary(salary) {
+          const salaryNum = Number(salary);
+          if (salaryNum >= 10000) {
+            return salaryNum.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0});
+          } else {
+            return salaryNum.toFixed(2);
+          }
+      }
   },
 }
 </script>
 
 
-<style scoped>
-
-</style>

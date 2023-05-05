@@ -5,6 +5,8 @@ import router from '@/router'; // <-- Import router here
 export default createStore({
   state: {
     user: JSON.parse(localStorage.getItem('user')) || null,
+    savedJobs: JSON.parse(localStorage.getItem('savedJobs')) || null,
+    saveJob: ''
   },
   getters: {
   },
@@ -16,7 +18,17 @@ export default createStore({
     LOGOUT(state) {
       state.user = null;
       localStorage.removeItem('user');
-      console.log('User logged out');
+    },
+    REMOVE_JOB(state, job) {
+      state.savedJobs = state.savedJobs.filter(j => j.id !== job.id);
+      localStorage.setItem('savedJobs', JSON.stringify(state.savedJobs));
+    },
+    Check_Saved_Job(state){
+      const savedJobs = JSON.parse(localStorage.getItem('savedJobs'));
+      state.savedJobs = savedJobs || [];
+    },
+    SET_SAVE_JOB(state, value) {
+      state.saveJob = value;
     },
   },
   actions: {
@@ -42,7 +54,21 @@ export default createStore({
         }, timeDifference);
       }
     },
-    
+    SAVE_JOB({ commit, state }, job) {
+      if (state.savedJobs === null) {
+        const savedJobs = JSON.parse(localStorage.getItem('savedJobs'));
+        state.savedJobs = savedJobs || [];
+      }
+      const existingJob = state.savedJobs.find(j => j.id === job.id);
+      if (existingJob) {
+        console.log('Job already saved:', job);
+      } else {
+        state.savedJobs.push(job); // <-- Add job to savedJobs array
+        localStorage.setItem('savedJobs', JSON.stringify(state.savedJobs))
+        commit('SET_SAVE_JOB', 'Job Saved')
+      }
+    },
+       
   },
   modules: {
   }
