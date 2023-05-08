@@ -3,10 +3,10 @@ const {
     getAllReview,
 }= require("../controllers/Reviews.Controller");
 
-const BlogRouter = require("express").Router();
+const ReviewRouter = require("express").Router();
 
-BlogRouter.post("/", createReview);
-BlogRouter.get("/", getAllReview);
+ReviewRouter.post("/", createReview);
+ReviewRouter.get("/", getAllReview);
 
 
-module.exports = BlogRouter;
+module.exports = ReviewRouter;

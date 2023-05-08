@@ -7,16 +7,16 @@ const {
     updateJobListing
 }= require("../controllers/Job.Listing.Controller");
 
-const BlogRouter = require("express").Router();
+const JobListing = require("express").Router();
 const {authenticateUser} = require("../Middleware/AuthenticateUser");
 
-BlogRouter.use(authenticateUser);
-BlogRouter.post("/", createJobListing);
-BlogRouter.get("/", getAllJobListing);
-BlogRouter.get("/singleJob", getAllJobForUserById);
-BlogRouter.get("/:id", getJobListingById);
-BlogRouter.patch("/:id",updateJobListing);
-BlogRouter.delete("/:id", deleteJobListings);
+JobListing.use(authenticateUser);
+JobListing.post("/", createJobListing);
+JobListing.get("/", getAllJobListing);
+JobListing.get("/singleJob", getAllJobForUserById);
+JobListing.get("/:id", getJobListingById);
+JobListing.patch("/:id",updateJobListing);
+JobListing.delete("/:id", deleteJobListings);
 
 
-module.exports = BlogRouter;
+module.exports = JobListing;

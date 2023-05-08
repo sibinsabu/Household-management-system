@@ -3,12 +3,12 @@ const {
     getJobApplicantsByJobId
 }= require("../controllers/Job.Applications.Controller");
 
-const BlogRouter = require("express").Router();
+const JobApplications = require("express").Router();
 const {authenticateUser} = require("../Middleware/AuthenticateUser");
 
-BlogRouter.use(authenticateUser);
-BlogRouter.post("/", createJobApplicants);
-BlogRouter.get("/:id", getJobApplicantsByJobId);
+JobApplications.use(authenticateUser);
+JobApplications.post("/", createJobApplicants);
+JobApplications.get("/:id", getJobApplicantsByJobId);
 
 
-module.exports = BlogRouter;
+module.exports = JobApplications;
