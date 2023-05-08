@@ -21,14 +21,18 @@
         <div class="mb-2">
           <h1 class="text-xl font-bold">Rankings</h1>
           <div class="flex items-center mt-2">
-             <fa :icon="['fas', 'star' ]" class="text-yellow-400" />
-              <fa :icon="['fas', 'star' ]" class="text-yellow-400" />
-              <fa :icon="['fas', 'star' ]" class="text-yellow-400" />
-              <fa :icon="['fas', 'star' ]" class="text-yellow-400" />
-              <fa :icon="['fas', 'star' ]" class="text-yellow-400" />
-              <fa :icon="['fas', 'star' ]" class="text-yellow-400" />
-           </div>
+            <fa :icon="['fas', 'star' ]" class="text-yellow-400" v-on:click="RateUser(userProfile.id, 1)" />
+            <fa :icon="['fas', 'star' ]" class="text-yellow-400" v-on:click="RateUser(userProfile.id, 1.5)" />
+            <fa :icon="['fas', 'star' ]" class="text-yellow-400" v-on:click="RateUser(userProfile.id, 2)" />
+            <fa :icon="['fas', 'star' ]" class="text-yellow-400" v-on:click="RateUser(userProfile.id, 2.5)" />
+            <fa :icon="['fas', 'star' ]" class="text-yellow-400" v-on:click="RateUser(userProfile.id, 3)" />
+          </div>
+          <div class="mt-2">
+           <p class="text-lg font-bold">{{ ratings }} Stars</p>
+          </div>
         </div>
+        
+
       </div>
       
     </div>
@@ -38,27 +42,52 @@
 <script>
   import axios from "axios";
   import { SERVER_URL } from "../../constant/index";
+  import apiCall from '../../constant/Api'
 
 export default {
   data() {
       return {
         userProfile: {},
+        ratings: [],
       };
     },
   computed: {
       user() {
         return this.$store.state.user;
       },
-    },
+  },
   created() {
       axios.get(`${SERVER_URL}/authentication/${this.$route.params.id}`)
         .then((res) => {
-          console.log(res);
           this.userProfile = res.data.user;
         })
         .catch((error) => {
-      
-        });
-    },
+      });
+
+      apiCall('/Ratings', 'GET')
+      .then((res) => {
+        this.ratings = res.totalRating; 
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  },
+  methods: {
+    RateUser(rated_user_id, ratingValue) {
+      apiCall('/Ratings', 'post', {
+        rating: ratingValue,
+        rated_user_id: rated_user_id,
+      })
+      .then((res) => {
+        console.log(ratingValue, rated_user_id);
+        this.HandelSuccess = "You have applied the rating successfully";
+      })
+      .catch((error) => {
+        if (error.response?.status === 400) {
+          this.HandelError = "You have already applied the rating for this user";
+        }
+      });
+    }
+  },
 }
 </script>

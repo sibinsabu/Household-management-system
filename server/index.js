@@ -9,6 +9,7 @@ const BlogRoutes = require('./routes/Blog.Route')
 const ReviewRoutes = require('./routes/Reviews.Route')
 const JobListingRoutes = require('./routes/Job.Listing.Route')
 const ApplicantRoutes = require('./routes/Job.Applications.Route')
+const RatingRoutes = require('./routes/Rating.Route')
 
 try{
     database.authenticate();
@@ -27,6 +28,7 @@ app.use('/Blogs', BlogRoutes)
 app.use('/Reviews', ReviewRoutes)
 app.use('/JobListings', JobListingRoutes)
 app.use('/JobsApplication', ApplicantRoutes)
+app.use('/Ratings', RatingRoutes)
 
 
 app.listen(5000, () => console.log("this server is running at port 5000"));

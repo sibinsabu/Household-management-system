@@ -29,6 +29,12 @@
           </div>
           <p class="mt-1 max-w-2xl text-lg text-gray-500">{{ userProfile.AboutMe }}</p>
         </div>
+
+        <div>
+          <h1 class="text-xl font-bold">Ratings</h1>
+          <p class="text-lg font-bold">{{ ratings }} Stars</p>
+        </div>
+  
       </div>
     </div>
   </div>
@@ -72,6 +78,7 @@ export default {
     return {
       userProfile: {},
       blogs: [],
+      ratings: [],
       deleteMessage: "",
     };
   },
@@ -97,9 +104,18 @@ export default {
         console.log(error);
       });
 
+      apiCall('/Ratings', 'GET')
+      .then((res) => {
+        this.ratings = res.totalRating; 
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    
       this.formatDistance = formatDistance.bind(this);
   },
   methods: {
+    
   deleteBlog(id) {
     apiCall(`/Blogs/${id}`, 'DELETE')
       .then(() => {
