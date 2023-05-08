@@ -13,7 +13,6 @@ export default createStore({
   mutations: {
     LOGIN(state, user) {
       state.user = user;
-      console.log('User logged in:', user);
     },
     LOGOUT(state) {
       state.user = null;

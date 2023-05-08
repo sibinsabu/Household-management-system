@@ -4,7 +4,7 @@
         <div @click="openModal" class="w-12 h-12 rounded-lg bg-purple-600 flex items-center justify-center mb-2">
             <div class="fas fa-plus text-white text-2xl"><fa :icon="['fas', 'plus' ]" /></div>
         </div>
-        <div class="text-purple-600 font-bold text-lg">Create Job Listing</div>
+        <div class="text-purple-600 font-bold text-lg">Create Blog</div>
       </div>
 
       <div class="fixed inset-0 bg-zinc-100 bg-opacity-75 blur" v-if="showModal"></div>
@@ -80,14 +80,17 @@ export default {
     closeModal() {
       this.showModal = false;
     },
-    
     postLikes(blogId) {
+      const blog = this.blogs.find((blog) => blog.blog_id === blogId);
+      if (blog) {
+        blog.likes++;
+      }
       apiCall(`/Blogs/${blogId}`, 'PUT')
-    .catch((error) => {
-      console.log(error);
-    });
-  }
- },
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
 };
 </script>
 

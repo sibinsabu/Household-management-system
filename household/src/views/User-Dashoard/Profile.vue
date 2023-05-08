@@ -55,7 +55,7 @@
     </div>
 
     <div v-if="deleteMessage" class="fixed bottom-0 right-0 bg-gray-600 rounded mb-10">
-      <span class="block text-center text-black p-4">{{ deleteMessage }}</span>
+      <span class="block text-center text-white p-4">{{ deleteMessage }}</span>
     </div> 
   </div>
 </div>

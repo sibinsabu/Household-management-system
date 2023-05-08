@@ -16,7 +16,7 @@
       </div>
 
       <div class="w-full max-w-7xl mx-auto">
-        <h2 class="text-3xl font-bold mb-10 px-5">My Job Listings Posts</h2>
+        <h2 class="text-3xl font-bold mb-10 px-5">My Job Listings</h2>
 
         <div class="grid gap-5 lg:grid-cols-3">
           <div v-for="jobListing in jobListings" :key="jobListing.job_id" class="bg-white rounded-lg shadow-lg p-5 hover:shadow-xl transition-shadow duration-300">
@@ -134,8 +134,3 @@ export default {
   },
 };
 </script>
-
-
-<style>
-
-</style>

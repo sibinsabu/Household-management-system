@@ -5,10 +5,10 @@
          <h1 v-else-if="user && user.accountType === 'Homeowner'" class="text-4xl font-bold text-center text-gray-900">Job Listing</h1>
        </div>
 
-         <div v-if="HandelSuccess" class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative mb-2" role="alert">
+         <div v-if="HandelSuccess" class="max-w-7xl mx-auto bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative mb-2" role="alert">
             <span class="block sm:inline text-center">{{ HandelSuccess }}</span>
         </div>
-        <div v-if="HandelError" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-2" role="alert">
+        <div v-if="HandelError" class="max-w-7xl mx-auto bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-2" role="alert">
             <span class="block sm:inline text-center">{{ HandelError }}</span>
         </div>
 

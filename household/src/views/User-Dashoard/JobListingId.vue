@@ -1,11 +1,11 @@
 <template>
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 my-20 mt-40">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 my-20 mt-20">
       <div v-if="saveJobMessage" class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative mb-2" role="alert">
            <span class="block sm:inline text-center">{{ saveJobMessage }}</span>
       </div>
 
       <div v-if="user && user.accountType === 'Applicant'" class="px-2">
-          <div class="border rounded-t-lg p-4 h-40 lg:mt-40">
+          <div class="border rounded-t-lg p-4 h-40">
             <h2 class="text-2xl font-bold mb-2 text-purple-800 uppercase text-center">homeowner</h2>
               <div class="flex items-center mb-4">
                 <router-link :to="{ name: 'PublicProfile', params:{ id:userId} }"><img class="w-10 h-10 rounded-full mr-2" :src="image" alt="Applicant Image"></router-link>

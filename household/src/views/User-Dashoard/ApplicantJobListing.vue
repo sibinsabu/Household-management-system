@@ -2,7 +2,7 @@
   <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 my-20 ">
 
     <div>
-      <div class="border rounded-t-lg p-4 h-52 lg:mt-52">
+      <div class="border rounded-t-lg p-4 h-52">
          <h2 class="text-2xl font-bold mb-2 text-purple-800 uppercase text-center">job info</h2>
           <div class="grid grid-cols-2 gap-4">
               <div>

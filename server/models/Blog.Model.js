@@ -24,9 +24,6 @@ const Blogs = database.define("blogs",{
     likes:{
         type: DataTypes.INTEGER,
     },
-    ApplicantNumber:{
-        type: DataTypes.INTEGER,
-    },
 },
 {
     freezeTableName: true,
