@@ -6,7 +6,6 @@ const database = require("./config/database");
 const app = express();
 const UserRoutes = require('./routes/User.Route')
 const BlogRoutes = require('./routes/Blog.Route')
-const ReviewRoutes = require('./routes/Reviews.Route')
 const JobListingRoutes = require('./routes/Job.Listing.Route')
 const ApplicantRoutes = require('./routes/Job.Applications.Route')
 const RatingRoutes = require('./routes/Rating.Route')
@@ -25,7 +24,6 @@ app.use(cors());
 app.use(morgan("dev"));
 app.use('/authentication', UserRoutes)
 app.use('/Blogs', BlogRoutes)
-app.use('/Reviews', ReviewRoutes)
 app.use('/JobListings', JobListingRoutes)
 app.use('/JobsApplication', ApplicantRoutes)
 app.use('/Ratings', RatingRoutes)

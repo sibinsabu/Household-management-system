@@ -17,7 +17,6 @@ import  Profile from '../views/User-Dashoard/Profile.vue'
 import  UpdateProfile from '../views/User-Dashoard/UpdateProfile.vue'
 import  SavedJobs from '../views/User-Dashoard/SavedJobs.vue'
 import  Post from '../views/User-Dashoard/Post.vue'
-import Reviews from '../views/User-Dashoard/Reviews.vue'
 import PublicProfile from '../views/User-Dashoard/Public-profile.vue'
 import CreateJob from '../views/User-Dashoard/Create-job-listing.vue'
 import AccountType from '../views/AccountType.vue'
@@ -165,15 +164,6 @@ const routes = [
     path: '/Post',
     name: 'Post',
     component: Post,
-    meta: {
-      requiresAuth: true
-    },
-    beforeEnter: requireAuth
-  },
-  {
-    path: '/Reviews',
-    name: 'Reviews',
-    component: Reviews,
     meta: {
       requiresAuth: true
     },

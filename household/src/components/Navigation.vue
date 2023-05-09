@@ -14,6 +14,11 @@
               'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0 md:hidden': showMobileMenu }" :to="{ name: 'Profile', params:{ id:user.id} }">
                  Profile
               </router-link>
+
+              <router-link @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block': !showMobileMenu,
+              'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0': showMobileMenu }" :to="{ name: 'Jobs' }">
+                Jobs 
+              </router-link>
               
               <router-link @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block': !showMobileMenu,
               'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0': showMobileMenu }" :to="{ name: 'Saved-Jobs' }">
@@ -24,12 +29,6 @@
               'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0': showMobileMenu }" :to="{ name: 'Post' }">
                 Post 
               </router-link>
-  
-              <router-link  @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block': !showMobileMenu,
-              'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0': showMobileMenu }" :to="{ name: 'Reviews' }">
-                Reviews  
-              </router-link>
-  
   
               <a  @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:hidden': !showMobileMenu,
               'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0 cursor-pointer': showMobileMenu }">
@@ -73,6 +72,11 @@
               'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0 md:hidden': showMobileMenu }" :to="{ name: 'Profile', params:{ id:user.id} }">
                  Profile
               </router-link>
+
+              <router-link @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block': !showMobileMenu,
+              'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0': showMobileMenu }" :to="{ name: 'Jobs' }">
+                Jobs 
+              </router-link>
               
               <router-link  @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block': !showMobileMenu,
               'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0': showMobileMenu }" :to="{ name: 'Create-job-listing' }">
@@ -82,11 +86,6 @@
               <router-link  @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block': !showMobileMenu,
               'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0': showMobileMenu }" :to="{ name: 'Post' }">
                 Post 
-              </router-link>
-  
-              <router-link  @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block': !showMobileMenu,
-              'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0': showMobileMenu }" :to="{ name: 'Reviews' }">
-                Reviews  
               </router-link>
   
               <a  @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:hidden': !showMobileMenu,
