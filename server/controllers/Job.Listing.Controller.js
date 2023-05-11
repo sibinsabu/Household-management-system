@@ -1,6 +1,6 @@
 const JobListing = require('../models/Job.ListingModel')
 const User = require('../models/User.Model')
-
+const Sequelize = require('sequelize')
 
 
 function getCurrentDate() {
@@ -42,17 +42,37 @@ const createJobListing = async (req, res) => {
 
 
 const getAllJobListing = async (req, res) => {
-    try {
-      const jobListing = await JobListing.findAll({ 
-        include: [{
-          model: User,
-          attributes: ['username', 'email', 'phoneNumber', 'accountType', 'jobTitle', 'AboutMe', 'location', 'image']
-        }]
-      });
-        return res.status(200).json({ success: true, jobListing});
-    } catch (error) {
-        return res.status(500).json({ success: false, message: error.message});
-    }
+  try {
+    const count = await JobListing.count();
+    const offset = Math.floor(Math.random() * count);
+    const jobListing = await JobListing.findAll({ 
+      limit: 10,
+      offset: offset,
+      include: [{
+        model: User,
+        attributes: ['username', 'email', 'phoneNumber', 'accountType', 'jobTitle', 'AboutMe', 'location', 'image']
+      }],
+      order: Sequelize.literal('RAND(NOW())')
+    });
+    return res.status(200).json({ success: true, jobListing});
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message});
+  }
+}
+
+
+const FilterAllJobListing = async (req, res) => {
+  try {
+    const FilterJobListing = await JobListing.findAll({ 
+      include: [{
+        model: User,
+        attributes: ['username', 'email', 'phoneNumber', 'accountType', 'jobTitle', 'AboutMe', 'location', 'image']
+      }]
+    });
+      return res.status(200).json({ success: true, FilterJobListing});
+  } catch (error) {
+      return res.status(500).json({ success: false, message: error.message});
+  }
 }
  
 const getAllJobForUserById = async (req, res) => {
@@ -149,6 +169,7 @@ const deleteJobListings = async (req, res) => {
 module.exports = {
     createJobListing,
     getAllJobListing,
+    FilterAllJobListing,
     getAllJobForUserById,
     getJobListingById,
     deleteJobListings,

@@ -4,7 +4,8 @@ const JWT = require("jsonwebtoken");
 const { JWT_SECRET } = require("../constant/index");
 const nodemailer =require('nodemailer')
 const cloudinary = require("cloudinary").v2;
-
+const dotenv = require('dotenv');
+dotenv.config();
 
 const createToken = (id, name, email) => {
     return JWT.sign({
@@ -17,9 +18,9 @@ const createToken = (id, name, email) => {
 };
   
 cloudinary.config({
-  cloud_name: "dows56r9v",
-  api_key: "296524897655252",
-  api_secret: "LSawka1n4AuQ-nrhVcDdaGlqSgI"
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
 });
   
 const signup = async (req, res) => {
