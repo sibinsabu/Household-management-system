@@ -16,30 +16,31 @@
       </div>
 
       <div class="w-full max-w-7xl mx-auto">
-        <h2 class="text-3xl font-bold mb-10 px-5">My Job Listings</h2>
+  <h2 class="text-3xl font-bold mb-10 px-5">My Job Listings</h2>
 
-        <div class="grid gap-5 lg:grid-cols-3">
-          <div v-for="jobListing in jobListings" :key="jobListing.job_id" class="bg-white rounded-lg shadow-lg p-5 hover:shadow-xl transition-shadow duration-300">
-            <h2 class="text-2xl font-bold text-purple-800 capitalize">{{ jobListing.jobTitle }}</h2>
-            <div class="text-gray-600 text-base mb-4 font-bold capitalize">{{ jobListing.location }}</div>
-            <p class="text-gray-800 mb-4">{{ jobListing.description }}</p>
+  <div class="grid gap-5 lg:grid-cols-3">
+    <div v-for="jobListing in jobListings" :key="jobListing.job_id" class="bg-white rounded-lg shadow-lg p-5 hover:shadow-xl transition-shadow duration-300">
+      <h2 class="text-2xl font-bold text-purple-800 capitalize">{{ jobListing.jobTitle }}</h2>
+      <div class="text-gray-600 text-base mb-4 font-bold capitalize">{{ jobListing.location }}</div>
+      <p class="text-gray-800 mb-4">{{ jobListing.description }}</p>
 
-            <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-3">
-              <div class="text-gray-600 text-base font-bold">Applicants: {{jobListing.ApplicantNumber }}</div>
-              <div class="text-gray-600 text-base font-bold">{{ formatDate(jobListing.date) }}</div>
-              <div class="text-gray-600 text-base font-bold">Status: <span class="text-gray-600 bg-green-200 rounded-full px-2 inline-block">{{ jobListing.status }}</span></div> 
-              <div class="text-2xl font-bold text-purple-800">Ksh {{ formatSalary(jobListing.salary) }}</div>
-                <button v-if="jobListing.status === 'Posted'" @click="updateToHired(jobListing.job_id)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded transition-colors duration-300">Update to Hired</button>
-                <button v-if="jobListing.status === 'Hired'" @click="updateToClosed(jobListing.job_id)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded transition-colors duration-300">Update to Closed</button>
-            </div>
-
-            <div class="flex items-center py-2 justify-between">
-             <div class="text-base bg-green-600 text-white px-2 py-1 rounded-md">{{ jobListing.timeSchedule }}</div>
-             <div @click="deleteJobListing(jobListing.job_id)" class="text-base bg-red-600 text-white px-2 py-1 rounded-md cursor-pointer">Delete</div>
-            </div>
-          </div>
-        </div>
+      <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-3">
+        <div class="text-gray-600 text-base font-bold">Applicants: {{ jobListing.ApplicantNumber }}</div>
+        <div class="text-gray-600 text-base font-bold">{{ formatDate(jobListing.date) }}</div>
+        <div class="text-gray-600 text-base font-bold">{{ jobListing.timeSchedule }}</div>
+        <div class="text-2xl font-bold text-purple-800">Ksh {{ formatSalary(jobListing.salary) }}</div>
+        <div class="text-gray-600 text-base font-bold">Status: <span class="text-gray-600 bg-green-200 rounded-full px-2 inline-block">{{ jobListing.status }}</span></div> 
       </div>
+
+      <div class="flex items-center py-2 justify-between">
+        <button v-if="jobListing.status === 'Posted'" @click="updateToHired(jobListing.job_id)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-1 rounded transition-colors duration-300">Update to Hired</button>
+        <button v-if="jobListing.status === 'Hired'" @click="updateToClosed(jobListing.job_id)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-1 rounded transition-colors duration-300">Update to Closed</button>
+        <div @click="deleteJobListing(jobListing.job_id)" class="text-base bg-red-600 text-white px-2 py-1 rounded-md cursor-pointer">Delete</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
       <div v-if="deleteMessage" class="fixed bottom-0 right-0 bg-gray-600 rounded mb-10">
       <span class="block text-center text-white p-4">{{ deleteMessage }}</span>
