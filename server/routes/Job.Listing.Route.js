@@ -1,6 +1,7 @@
 const {
     createJobListing,
     getAllJobListing,
+    FilterAllJobListing,
     getAllJobForUserById,
     getJobListingById,
     deleteJobListings,
@@ -13,6 +14,7 @@ const {authenticateUser} = require("../Middleware/AuthenticateUser");
 JobListing.use(authenticateUser);
 JobListing.post("/", createJobListing);
 JobListing.get("/", getAllJobListing);
+JobListing.get("/Filter", FilterAllJobListing);
 JobListing.get("/singleJob", getAllJobForUserById);
 JobListing.get("/:id", getJobListingById);
 JobListing.patch("/:id",updateJobListing);

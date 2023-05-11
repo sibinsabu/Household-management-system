@@ -13,32 +13,18 @@
         </div>
 
       <div class="w-full max-w-7xl mx-auto py-10">
-       <div class="grid gap-5 lg:grid-cols-2 px-5">
-        <div class="relative">
-          <input type="text" id="search" name="search" placeholder="Search for jobs" class="py-2 px-10 pr-20 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent w-full">
+       <div class="flex items-center justify-center px-5">
+        <div>
+          <input v-model="searchTerm" type="text" placeholder="Search" class="py-2 px-5 pr-20 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent w-full">
           <div class="absolute inset-y-0 right-0 flex items-center pr-3">
-            <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="none" stroke="currentColor">
-              <path d="M8 12a4 4 0 100-8 4 4 0 000 8zM19 19l-4.35-4.35"></path>
-            </svg>
           </div>
-        </div>
-
-        <div class="flex justify-center items-center">
-          <label for="filter" class="mr-2 text-gray-600">Filter job:</label>
-          <select class="appearance-none block px-3 py-2 border border-gray-300 rounded-md placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent">
-            <option value="">All Jobs</option>
-            <option value="maid">Maid</option>
-            <option value="nanny">Nanny</option>
-            <option value="elder-care">Elder Care</option>
-            <option value="meal-preparation">Meal Preparation</option>
-          </select>
         </div>
        </div>
       </div>
   
       <div v-if="user && user.accountType === 'Applicant'" class="w-full max-w-7xl mx-auto">
         <div class="grid gap-5 lg:grid-cols-2 px-5">
-          <div  v-for="jobListing in jobListings" :key="jobListing.job_id" class="bg-white rounded-lg shadow-lg mb-8 p-6 hover:shadow-xl transition-shadow duration-300">
+          <div  v-for="jobListing in filteredJobListings" :key="jobListing.job_id" class="bg-white rounded-lg shadow-lg mb-8 p-6 hover:shadow-xl transition-shadow duration-300">
             <h2 class="text-2xl font-bold mb-2 text-purple-800 uppercase"><router-link :to="{ name: 'JobListing', params:{ id:jobListing.job_id} }">{{ jobListing.jobTitle }}</router-link></h2>
             <div class="text-gray-600 text-base mb-4 font-bold capitalize">{{ jobListing.location }}</div>
             <p class="text-gray-800 mb-4">{{ jobListing.description }}</p>
@@ -61,7 +47,7 @@
 
       <div v-else-if="user && user.accountType === 'Homeowner'" class="w-full max-w-7xl mx-auto">
         <div class="grid gap-5 lg:grid-cols-2 px-5">
-          <div v-for="jobListing in jobListings" :key="jobListing.job_id" class="bg-white rounded-lg shadow-lg mb-8 p-6 hover:shadow-xl transition-shadow duration-300">
+          <div v-for="jobListing in filteredJobListings" :key="jobListing.job_id" class="bg-white rounded-lg shadow-lg mb-8 p-6 hover:shadow-xl transition-shadow duration-300">
             <h2 class="text-2xl font-bold mb-2 text-purple-800 uppercase"><router-link :to="{ name: 'JobListing', params:{ id:jobListing.job_id} }">{{ jobListing.jobTitle }}</router-link></h2>
             <div class="text-gray-600 text-base mb-4 font-bold capitalize">{{ jobListing.location }}</div>
             <p class="text-gray-800 mb-4">{{ jobListing.description }}</p>
@@ -91,6 +77,8 @@
     data() {
       return {
         jobListings: {},
+        FilterJobListings: {},
+        searchTerm:'',
         Applicant: '1',
         HandelSuccess: '',
         HandelError: '',
@@ -104,11 +92,30 @@
       .catch((error) => {
         console.log(error);
       });
-  },
+
+      apiCall('/JobListings/Filter', 'GET', { search: this.searchTerm })
+      .then((res) => {
+        this.FilterJobListings = res.FilterJobListing;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    },
   computed: {
     user() {
       return this.$store.state.user;
     },
+    filteredJobListings() {
+      if (!this.searchTerm) {
+        return this.jobListings;
+      }
+      const lowerCaseSearch = this.searchTerm.toLowerCase();
+      return this.FilterJobListings.filter(jobListing => {
+      const lowerCaseTitle = (jobListing.jobTitle || '').toLowerCase();
+      const lowerCaseLocation = (jobListing.location || '').toLowerCase();
+      return (lowerCaseTitle && lowerCaseTitle.includes(lowerCaseSearch)) || (lowerCaseLocation && lowerCaseLocation.includes(lowerCaseSearch));
+      });
+    }
   },
   methods: {
     ApplyForJob(job_id) {
@@ -142,7 +149,7 @@
         return salaryNum.toFixed(2);
       }
     }
- },
+  },
   };
 </script>
   
