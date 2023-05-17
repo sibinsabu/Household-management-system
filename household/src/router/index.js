@@ -43,6 +43,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
+    // t Vue Router expects the component to be a Promise when using an inline function
     component: () => {
       return new Promise((resolve) => {
         const isLoggedIn = JSON.parse(localStorage.getItem("user")) !== null;
