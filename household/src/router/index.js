@@ -44,8 +44,10 @@ const routes = [
     path: '/',
     name: 'home',
     component: () => {
-      const isLoggedIn = JSON.parse(localStorage.getItem("user")) !== null;
-      return isLoggedIn ? Jobs : HomeView;
+      return new Promise((resolve) => {
+        const isLoggedIn = JSON.parse(localStorage.getItem("user")) !== null;
+        resolve(isLoggedIn ? Jobs : HomeView);
+      });
     }
    
   },
