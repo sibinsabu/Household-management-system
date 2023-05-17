@@ -64,7 +64,7 @@ export default {
         .catch((error) => {
       });
 
-      apiCall('/Ratings', 'GET')
+      apiCall(`/Ratings/${this.$route.params.id}`, 'GET')
       .then((res) => {
         this.ratings = res.totalRating; 
       })

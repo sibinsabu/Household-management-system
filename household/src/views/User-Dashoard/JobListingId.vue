@@ -8,7 +8,7 @@
           <div class="border rounded-t-lg p-4 h-40">
             <h2 class="text-2xl font-bold mb-2 text-purple-800 uppercase text-center">homeowner</h2>
               <div class="flex items-center mb-4">
-                <router-link :to="{ name: 'PublicProfile', params:{ id:userId} }"><img class="w-10 h-10 rounded-full mr-2" :src="image" alt="Applicant Image"></router-link>
+                <router-link v-if="userId" :to="{ name: 'PublicProfile', params: { id: userId } }"><img class="w-10 h-10 rounded-full mr-2" :src="image" alt="Applicant Image"></router-link>
                 <div>
                   <p class="text-gray-900 font-bold"><a href="/public-profile">{{ username }}</a></p>
                   <p class="text-gray-600">{{ email }}</p>

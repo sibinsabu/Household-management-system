@@ -25,7 +25,7 @@ const createRating = async (req, res) => {
 
 
 
-const getAllRatingForUserById = async (req, res) => {
+const getAllRatingForUser = async (req, res) => {
   const user_id = req.user.id;
   if (!user_id) {
     return res.status(400).json({
@@ -45,10 +45,30 @@ const getAllRatingForUserById = async (req, res) => {
   }
 };
 
+const getAllRatingForUserById = async (req, res) => {
+  const user_id = req.params.id;
+  if (!user_id) {
+    return res.status(400).json({
+      success: false,
+      message: "user_id parameter is required",
+    });
+  }
+  try {
+    const ratings = await Ratings.findAll({ where: {rated_user_id: user_id } });
+    const totalRating = ratings.reduce((acc, rating) => acc + rating.rating, 0);
+    return res.status(200).json({
+      success: true,
+      totalRating,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
  
 module.exports = {
     createRating,
+    getAllRatingForUser,
     getAllRatingForUserById,
   };
   
