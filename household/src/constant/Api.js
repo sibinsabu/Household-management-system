@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = "https://household-v4wd.onrender.com";
 
  const apiCall = async (url, method, data = {}, headers = {}) => {
   const user = localStorage.getItem("user");

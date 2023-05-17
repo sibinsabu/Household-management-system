@@ -3,7 +3,7 @@ const database = require('../config/database')
 const Users = require('../models/User.Model')
 const JobListing = require('../models/Job.ListingModel')
 
-const Applicant = database.define("Applicants",{
+const Applicant = database.define("applicants",{
     applicant_id: {
         type: DataTypes.INTEGER,
         primaryKey: true,

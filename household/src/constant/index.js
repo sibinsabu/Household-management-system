@@ -1,1 +1,1 @@
-export const SERVER_URL = "http://localhost:5000";
+export const SERVER_URL = "https://household-v4wd.onrender.com";
