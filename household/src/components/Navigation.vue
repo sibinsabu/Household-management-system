@@ -149,7 +149,7 @@
             </router-link>
           </div>
 
-          <div>
+          <div class="space-x-6">
             <router-link @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block': !showMobileMenu,
              'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0': showMobileMenu }" :to="{ name: 'AccountType' }">
               Signup
