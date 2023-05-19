@@ -148,6 +148,18 @@
               Contact
             </router-link>
           </div>
+
+          <div>
+            <router-link @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block': !showMobileMenu,
+             'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0': showMobileMenu }" :to="{ name: 'AccountType' }">
+              Signup
+            </router-link>
+
+            <router-link @click="showMobileMenu = false" :class="{'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block': !showMobileMenu,
+             'text-indigo-900 hover:text-gray-900 font-medium block md:inline-block ml-10 my-2 md:my-0': showMobileMenu }" :to="{ name: 'Login' }">
+              Login
+            </router-link>
+          </div>
   
         
           <div class="md:hidden ml-auto">
