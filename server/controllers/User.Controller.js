@@ -184,8 +184,13 @@ const signup = async (req, res) => {
       const transporter = nodemailer.createTransport({
         service:'gmail',
         auth:{
+<<<<<<< HEAD
           user: process.env.USER ,
           pass: process.env.PASS,
+=======
+          user:'ma07041705@gmail.com',
+          pass:"uagrmlhtgykwbrrr"
+>>>>>>> parent of 5fc6f42 (Remove cached files)
   
         }
       })
