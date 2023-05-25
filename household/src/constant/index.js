@@ -1,0 +1,1 @@
+export const SERVER_URL = "https://household-v4wd.onrender.com";
