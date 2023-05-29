@@ -10,14 +10,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { inject } from '@vercel/analytics';
 library.add(fab, fas)
 
-Vue.config.productionTip = false;
 
-
-inject();
-
-inject({
-  deploymentUrl: 'https://household-app.vercel.app/',
-});
 
 router.beforeEach(() => {
     store.dispatch('CHECK_TOKEN_EXPIRATION');
@@ -31,4 +24,5 @@ router.beforeEach(() => {
 
 createApp(App)
 .component('fa', FontAwesomeIcon)
+.component('inject', inject)
 .use(store).use(router).mount('#app')

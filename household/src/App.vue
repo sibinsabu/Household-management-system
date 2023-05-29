@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Analytics/>
+    <inject/>
     <Navigation/>
     <Footer/>
     </div>
