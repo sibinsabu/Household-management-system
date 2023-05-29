@@ -1,6 +1,9 @@
 <template>
+  <div>
+    <Analytics/>
     <Navigation/>
     <Footer/>
+    </div>
 </template>
 
 <script>
