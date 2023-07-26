@@ -39,7 +39,7 @@
         </p>
       </div>
 
-      <p class="mt-8 text-center text-gray-400 text-sm">&copy; 2023 Mohamed Ahmed</p>
+      <p class="mt-8 text-center text-gray-400 text-sm">&copy; 2023 Mohamed Ahmed / Brian murimi</p>
     </div>
   </footer>
 </template>
