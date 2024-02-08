@@ -22,20 +22,30 @@
             <div v-show="step === 1">
                  <p class="mb-5 text-center text-sm text-gray-600 font-medium">Enter your signUp credential</p>
 
-                 <div class="relative rounded-md shadow-sm">
-                    <input type="file" id="imageUpload" name="imageUpload" class="sr-only" @change="handleFileChange">
-                     <div class="flex items-center justify-center px-6 py-3 bg-white text-blue-600 rounded-md hover:bg-blue-100 hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600">
-                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-                          </svg>
-                          <label for="imageUpload" class="">Upload an image</label>
-                      </div>
-                      <p v-if="formSubmitted && !image" class="text-red-500 text-xs italic">Please select an image.</p>
+                  <div class=" relative border-2 border-gray-300 border-dashed rounded-lg p-6" id="dropzone">
+                    <input  @change="handleFileChange" type="file" class="absolute inset-0 w-full h-full opacity-0 z-50" />
+                    <div class="text-center">
+                        <img class="mx-auto h-12 w-12" src="https://www.svgrepo.com/show/357902/image-upload.svg" alt="">
+
+                        <h3 class="mt-2 text-sm font-medium text-gray-900">
+                            <label for="file-upload" class="relative cursor-pointer">
+                                <span>Drag and drop</span>
+                                <span class="text-indigo-600"> or browse</span>
+                                <span>to upload</span>
+                                <input id="file-upload" name="file-upload" type="file" class="sr-only">
+                            </label>
+                        </h3>
+                        <p class="mt-1 text-xs text-gray-500">  PNG, JPG, GIF up to 10MB </p>
+
+                        <img :src="imageUrl" v-if="image" class="w-60 h-60  mr-5 mt-3 ">
+                    </div>
+                    <img src="" class="mt-4 mx-auto max-h-40 hidden" id="preview">
+
+                    <p v-if="formSubmitted && !image" class="text-red-500 text-xs italic">Please select an image.</p>
+
                   </div>
 
-                  <div class="flex justify-center">
-                   <img :src="imageUrl" v-if="image" class="w-60 h-60  mr-5 mt-3 rounded-full">
-                  </div>
+
 
                 <div class="mt-5">
                     <label for="username" class="block text-sm font-medium text-gray-700 my-2">Username</label>
