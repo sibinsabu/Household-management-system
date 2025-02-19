@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Household Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            margin: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        .box {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        input[type="text"], input[type="number"], input[type="date"], button {
+            padding: 10px;
+            margin-top: 5px;
+            width: 100%;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Household Management System</h1>
+</header>
+
+<div class="container">
+
+    <!-- Household Tasks Section -->
+    <div class="box">
+        <h2>Household Tasks</h2>
+        <form id="taskForm">
+            <input type="text" id="taskName" placeholder="Enter task name" required>
+            <input type="date" id="taskDate" required>
+            <button type="submit">Add Task</button>
+        </form>
+
+        <table id="taskTable">
+            <thead>
+                <tr>
+                    <th>Task Name</th>
+                    <th>Due Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Task rows will go here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Household Expenses Section -->
+    <div class="box">
+        <h2>Household Expenses</h2>
+        <form id="expenseForm">
+            <input type="text" id="expenseName" placeholder="Enter expense name" required>
+            <input type="number" id="expenseAmount" placeholder="Amount" required>
+            <input type="date" id="expenseDate" required>
+            <button type="submit">Add Expense</button>
+        </form>
+
+        <table id="expenseTable">
+            <thead>
+                <tr>
+                    <th>Expense Name</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Expense rows will go here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Household Items Section -->
+    <div class="box">
+        <h2>Household Items</h2>
+        <form id="itemForm">
+            <input type="text" id="itemName" placeholder="Enter item name" required>
+            <input type="number" id="itemQuantity" placeholder="Quantity" required>
+            <button type="submit">Add Item</button>
+        </form>
+
+        <table id="itemTable">
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Item rows will go here -->
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+    // Handling Task form submission
+    document.getElementById('taskForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        let taskName = document.getElementById('taskName').value;
+        let taskDate = document.getElementById('taskDate').value;
+
+        let taskTable = document.getElementById('taskTable').getElementsByTagName('tbody')[0];
+        let newRow = taskTable.insertRow();
+
+        newRow.insertCell(0).textContent = taskName;
+        newRow.insertCell(1).textContent = taskDate;
+
+        // Clear input fields
+        document.getElementById('taskName').value = '';
+        document.getElementById('taskDate').value = '';
+    });
+
+    // Handling Expense form submission
+    document.getElementById('expenseForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        let expenseName = document.getElementById('expenseName').value;
+        let expenseAmount = document.getElementById('expenseAmount').value;
+        let expenseDate = document.getElementById('expenseDate').value;
+
+        let expenseTable = document.getElementById('expenseTable').getElementsByTagName('tbody')[0];
+        let newRow = expenseTable.insertRow();
+
+        newRow.insertCell(0).textContent = expenseName;
+        newRow.insertCell(1).textContent = '$' + expenseAmount;
+        newRow.insertCell(2).textContent = expenseDate;
+
+        // Clear input fields
+        document.getElementById('expenseName').value = '';
+        document.getElementById('expenseAmount').value = '';
+        document.getElementById('expenseDate').value = '';
+    });
+
+    // Handling Item form submission
+    document.getElementById('itemForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        let itemName = document.getElementById('itemName').value;
+        let itemQuantity = document.getElementById('itemQuantity').value;
+
+        let itemTable = document.getElementById('itemTable').getElementsByTagName('tbody')[0];
+        let newRow = itemTable.insertRow();
+
+        newRow.insertCell(0).textContent = itemName;
+        newRow.insertCell(1).textContent = itemQuantity;
+
+        // Clear input fields
+        document.getElementById('itemName').value = '';
+        document.getElementById('itemQuantity').value = '';
+    });
+</script>
+
+</body>
+</html>
